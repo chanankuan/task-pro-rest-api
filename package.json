@@ -1,0 +1,30 @@
+{
+  "name": "task-pro-rest-api",
+  "type": "module",
+  "description": "A simple Task Pro rest api project",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "test": "jest"
+  },
+  "author": "Anton Chan",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "jimp": "^0.22.10",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "mailgun.js": "^10.2.1",
+    "mongoose": "^8.1.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nanoid": "^5.0.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "supertest": "^6.3.4"
+  }
+}
