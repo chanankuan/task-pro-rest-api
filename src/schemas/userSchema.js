@@ -43,5 +43,5 @@ export const updateUserSchema = Joi.object({
     'string.empty': '"password" cannot be an empty field',
     'string.min': '"password" should have a minimum length of 6',
   }),
-  avatarUrl: Joi.string(),
+  avatarUrl: Joi.any(),
 });

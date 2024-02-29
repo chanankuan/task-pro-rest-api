@@ -21,7 +21,7 @@ authRouter.get('/current', authController.getCurrentUser);
 authRouter.patch(
   '/user',
   validateBody(updateUserSchema),
-  upload.single('avatarURL'),
+  upload.single('avatarUrl'),
   authController.updateUser
 );
 
