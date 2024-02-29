@@ -4,5 +4,121 @@
     "version": "1.0.0",
     "title": "Task Pro Swagger",
     "description": "API documentation for task-pro-rest-api project"
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json", "multipart/form-data"],
+  "servers": [{ "url": "http://localhost:5050" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth User enpoints"
+    },
+    {
+      "name": "User",
+      "description": "User enpoints"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Conflict. Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Password123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme",
+            "example": "light"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "http://cloudinary/avatar"
+          }
+        },
+        "example": {
+          "name": "User",
+          "email": "user@example.com",
+          "theme": "light",
+          "avatarURL": "http://default-avatar-url.com"
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   }
 }
