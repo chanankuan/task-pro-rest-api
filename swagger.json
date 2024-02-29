@@ -7,7 +7,7 @@
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json", "multipart/form-data"],
-  "servers": [{ "url": "http://localhost:5050/api" }],
+  "servers": [{ "url": "http://localhost:5050" }],
   "tags": [
     {
       "name": "Auth",
@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/users/register": {
+    "/api/users/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -57,7 +57,7 @@
         }
       }
     },
-    "/users/login": {
+    "/api/users/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -95,7 +95,7 @@
         }
       }
     },
-    "/users/logout": {
+    "/api/users/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -112,7 +112,7 @@
         }
       }
     },
-    "/users/current": {
+    "/api/users/current": {
       "get": {
         "tags": ["User"],
         "summary": "User current",
