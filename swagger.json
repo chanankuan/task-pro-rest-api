@@ -106,7 +106,68 @@
             "description": "Successful logout"
           },
           "401": {
-            "description": "Unauthorized. Authorization token is wrong",
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User current",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "User current",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Current's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCurrentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCurrentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
             "content": {}
           }
         }
@@ -210,6 +271,103 @@
             "avatarURL": "http://default-avatar-url.com"
           },
           "token": "71389ASDHJK137hajSKD"
+        }
+      },
+      "GetCurrentResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "user"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "light"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "http://cloudinary/avatar"
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "71389ASDHJK137hajSKD"
+          }
+        },
+        "example": {
+          "user": {
+            "name": "user",
+            "email": "user@example.com",
+            "theme": "light",
+            "avatarURL": "http://default-avatar-url.com"
+          },
+          "token": "71389ASDHJK137hajSKD"
+        }
+      },
+      "UpdateCurrentRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Password123"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
+          }
+        },
+        "example": {
+          "name": "user",
+          "email": "user@example.com",
+          "password": "Password123",
+          "avatarURL": "http://default-avatar-url.com"
+        }
+      },
+      "UpdateCurrentResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "http://cloudinary/avatar"
+          }
+        },
+        "example": {
+          "name": "user",
+          "email": "user@example.com",
+          "avatarURL": "http://default-avatar-url.com"
         }
       }
     },
