@@ -200,6 +200,11 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "integer",
+            "description": "User's id",
+            "example": 123123123
+          },
           "name": {
             "type": "string",
             "description": "User's name",
@@ -212,6 +217,7 @@
           }
         },
         "example": {
+          "_id": 123123123,
           "name": "user",
           "email": "user@example.com"
         }
@@ -236,6 +242,11 @@
         "type": "object",
         "properties": {
           "user": {
+            "_id": {
+              "type": "integer",
+              "description": "User's id",
+              "example": 123123123
+            },
             "name": {
               "type": "string",
               "description": "User's name",
@@ -265,6 +276,7 @@
         },
         "example": {
           "user": {
+            "_id": 123123123,
             "name": "user",
             "email": "user@example.com",
             "theme": "light",
@@ -277,6 +289,11 @@
         "type": "object",
         "properties": {
           "user": {
+            "_id": {
+              "type": "integer",
+              "description": "User's id",
+              "example": 123123123
+            },
             "name": {
               "type": "string",
               "description": "User's name",
@@ -306,6 +323,7 @@
         },
         "example": {
           "user": {
+            "_id": 123123123,
             "name": "user",
             "email": "user@example.com",
             "theme": "light",
@@ -348,6 +366,11 @@
       "UpdateCurrentResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "integer",
+            "description": "User's id",
+            "example": 123123123
+          },
           "name": {
             "type": "string",
             "description": "User's name",
@@ -365,9 +388,10 @@
           }
         },
         "example": {
+          "_id": 123123123,
           "name": "user",
           "email": "user@example.com",
-          "avatarURL": "http://default-avatar-url.com"
+          "avatarURL": "http://unique-avatar-url.com"
         }
       }
     },
