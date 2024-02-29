@@ -1,0 +1,406 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Task Pro Swagger",
+    "description": "API documentation for task-pro-rest-api project"
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json", "multipart/form-data"],
+  "servers": [{ "url": "http://localhost:5050" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth User enpoints"
+    },
+    {
+      "name": "User",
+      "description": "User enpoints"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Conflict. Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Successful logout"
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User current",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "User current",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Current's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCurrentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCurrentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Password123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "integer",
+            "description": "User's id",
+            "example": 123123123
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        },
+        "example": {
+          "_id": 123123123,
+          "name": "user",
+          "email": "user@example.com"
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Password123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "_id": {
+              "type": "integer",
+              "description": "User's id",
+              "example": 123123123
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "user"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "light"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "http://cloudinary/avatar"
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "71389ASDHJK137hajSKD"
+          }
+        },
+        "example": {
+          "user": {
+            "_id": 123123123,
+            "name": "user",
+            "email": "user@example.com",
+            "theme": "light",
+            "avatarURL": "http://default-avatar-url.com"
+          },
+          "token": "71389ASDHJK137hajSKD"
+        }
+      },
+      "GetCurrentResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "_id": {
+              "type": "integer",
+              "description": "User's id",
+              "example": 123123123
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "user"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "light"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "http://cloudinary/avatar"
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "71389ASDHJK137hajSKD"
+          }
+        },
+        "example": {
+          "user": {
+            "_id": 123123123,
+            "name": "user",
+            "email": "user@example.com",
+            "theme": "light",
+            "avatarURL": "http://default-avatar-url.com"
+          },
+          "token": "71389ASDHJK137hajSKD"
+        }
+      },
+      "UpdateCurrentRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Password123"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
+          }
+        },
+        "example": {
+          "name": "user",
+          "email": "user@example.com",
+          "password": "Password123",
+          "avatarURL": "http://default-avatar-url.com"
+        }
+      },
+      "UpdateCurrentResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "integer",
+            "description": "User's id",
+            "example": 123123123
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "user"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "http://cloudinary/avatar"
+          }
+        },
+        "example": {
+          "_id": 123123123,
+          "name": "user",
+          "email": "user@example.com",
+          "avatarURL": "http://unique-avatar-url.com"
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

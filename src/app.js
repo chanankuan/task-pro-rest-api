@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerDocument } from './helpers/swaggerSetup.js';
 import { authRouter } from './routes/index.js';
 
 export const app = express();
@@ -9,6 +11,8 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/users', authRouter);
 
