@@ -1,0 +1,8 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Task Pro Swagger",
+    "description": "API documentation for task-pro-rest-api project"
+  }
+}
