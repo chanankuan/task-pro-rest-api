@@ -7,7 +7,7 @@
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json", "multipart/form-data"],
-  "servers": [{ "url": "http://localhost:5050" }],
+  "servers": [{ "url": "http://localhost:5050/api" }],
   "tags": [
     {
       "name": "Auth",
@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/api/users/register": {
+    "/users/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -52,6 +52,44 @@
           },
           "409": {
             "description": "Conflict. Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized. Email or password incorrect",
             "content": {}
           }
         }
@@ -93,23 +131,68 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
-          },
-          "theme": {
-            "type": "string",
-            "description": "User's theme",
-            "example": "light"
-          },
-          "avatarURL": {
-            "type": "string",
-            "description": "User's avatar",
-            "example": "http://cloudinary/avatar"
           }
         },
         "example": {
-          "name": "User",
-          "email": "user@example.com",
-          "theme": "light",
-          "avatarURL": "http://default-avatar-url.com"
+          "name": "user",
+          "email": "user@example.com"
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Password123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "user"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "light"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "http://cloudinary/avatar"
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "71389ASDHJK137hajSKD"
+          }
+        },
+        "example": {
+          "user": {
+            "name": "user",
+            "email": "user@example.com",
+            "theme": "light",
+            "avatarURL": "http://default-avatar-url.com"
+          },
+          "token": "71389ASDHJK137hajSKD"
         }
       }
     },
