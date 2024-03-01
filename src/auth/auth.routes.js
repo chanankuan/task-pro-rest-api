@@ -1,5 +1,6 @@
 import express from 'express';
 import authController from '../auth/auth.controller.js';
+import userController from '../user/user.controller.js';
 import {
   registerSchema,
   loginSchema,
@@ -17,12 +18,12 @@ authRouter.post(
 authRouter.post('/login', validateBody(loginSchema), authController.loginUser);
 authRouter.use(authenticate);
 authRouter.post('/logout', authController.logoutUser);
-authRouter.get('/current', authController.getCurrentUser);
+authRouter.get('/current', userController.getCurrentUser);
 authRouter.patch(
   '/current',
   validateBody(updateUserSchema),
   upload.single('avatarUrl'),
-  authController.updateUser
+  userController.updateUser
 );
 
 export default authRouter;
