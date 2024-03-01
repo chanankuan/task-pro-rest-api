@@ -11,6 +11,7 @@ const loginUser = async (req, res) => {
 
 const logoutUser = async (req, res) => {
   // Please, use service for communication with DB
+  // id is in req.user
 };
 
 export default {

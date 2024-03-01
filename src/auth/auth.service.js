@@ -5,11 +5,12 @@ import { HttpError } from '../helpers/index.js';
 
 const { SECRET_KEY } = dotenvConfig;
 
-const registerUser = async formData => {
+const registerUser = async ({ name, email, password }) => {
   // Create user in db
+  // use save() method
 };
 
-const loginUser = async userId => {
+const loginUser = async ({ email, password }) => {
   // Sign token and update it in db
 };
 

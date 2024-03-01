@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { nanoid } from 'nanoid';
 
 const userSchema = new Schema(
   {
@@ -19,10 +18,10 @@ const userSchema = new Schema(
     },
     theme: {
       type: String,
-      enum: ['light', 'violet', 'dark'],
-      default: 'light',
+      enum: ['system', 'light', 'violet', 'dark'],
+      default: 'system',
     },
-    avatarURL: { type: String, default: '' },
+    avatarURL: { type: String, default: 'default' },
     token: { type: String, default: '' },
   },
   { versionKey: false, timestamps: true }
