@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerDocument } from './helpers/swaggerSetup.js';
-import { authRouter } from './routes/index.js';
+import authRouter from './auth/auth.routes.js';
 
 export const app = express();
 

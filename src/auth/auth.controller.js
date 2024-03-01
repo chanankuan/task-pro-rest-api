@@ -1,4 +1,4 @@
-import { authService } from '../services/index.js';
+import authService from './auth.service.js';
 import { HttpError, trycatch } from '../helpers/index.js';
 
 const registerUser = async (req, res) => {

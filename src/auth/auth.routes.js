@@ -1,10 +1,10 @@
 import express from 'express';
-import { authController } from '../controllers/index.js';
+import authController from '../auth/auth.controller.js';
 import {
   registerSchema,
   loginSchema,
   updateUserSchema,
-} from '../schemas/index.js';
+} from '../user/user.schema.js';
 import { authenticate, validateBody, upload } from '../middlewares/index.js';
 
 const authRouter = express.Router();
@@ -19,7 +19,7 @@ authRouter.use(authenticate);
 authRouter.post('/logout', authController.logoutUser);
 authRouter.get('/current', authController.getCurrentUser);
 authRouter.patch(
-  '/user',
+  '/current',
   validateBody(updateUserSchema),
   upload.single('avatarUrl'),
   authController.updateUser
