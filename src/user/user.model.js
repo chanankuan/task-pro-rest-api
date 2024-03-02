@@ -21,7 +21,7 @@ const userSchema = new Schema(
       enum: ['system', 'light', 'violet', 'dark'],
       default: 'system',
     },
-    avatarURL: { type: String, default: 'default' },
+    avatar_url: { type: String, default: 'default' },
     token: { type: String, default: '' },
   },
   { versionKey: false, timestamps: true }

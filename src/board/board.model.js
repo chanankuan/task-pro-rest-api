@@ -6,11 +6,11 @@ const boardSchema = new Schema(
       type: String,
       required: [true, 'Set title for board'],
     },
-    iconId: {
+    icon_id: {
       type: Number,
       required: [true, 'Set id for icon'],
     },
-    backgroundURL: {
+    background_url: {
       type: String,
       required: [true, 'Set background url for board'],
     },

@@ -20,11 +20,11 @@ const cardSchema = new Schema(
       type: Date,
       required: [true, 'Set deadline date for card'],
     },
-    boardId: {
+    board_id: {
       type: Schema.Types.ObjectId,
       ref: 'Board',
     },
-    columnId: {
+    column_id: {
       type: Schema.Types.ObjectId,
       ref: 'Column',
     },

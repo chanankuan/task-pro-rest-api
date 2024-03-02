@@ -6,7 +6,7 @@ const columnSchema = new Schema(
       type: String,
       required: [true, 'Set title for column'],
     },
-    boardId: {
+    board_id: {
       type: Schema.Types.ObjectId,
       ref: 'Board',
     },
