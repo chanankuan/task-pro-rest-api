@@ -1,23 +1,23 @@
 import { Column } from './column.model.js';
 import { HttpError } from '../helpers/HttpError.js';
 
-const getAllColumns = () => {
+const getAllColumns = async () => {
   // get all columns
 };
 
-const getOneColumn = () => {
+const getOneColumn = async () => {
   // get one column
 };
 
-const createOneColumn = () => {
+const createOneColumn = async () => {
   // create one column
 };
 
-const deleteOneColumn = () => {
+const deleteOneColumn = async () => {
   // delete one column
 };
 
-const patchOneColumn = () => {
+const patchOneColumn = async () => {
   // patch one column
 };
 

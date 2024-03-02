@@ -1,23 +1,23 @@
 import columnService from './column.service.js';
 import { trycatch } from '../helpers/trycatch.js';
 
-const getAllcolumns = (req, res) => {
+const getAllcolumns = async (req, res) => {
   // get all columns
 };
 
-const getOnecolumn = (req, res) => {
+const getOnecolumn = async (req, res) => {
   // get one column
 };
 
-const createOnecolumn = (req, res) => {
+const createOnecolumn = async (req, res) => {
   // create one column
 };
 
-const deleteOnecolumn = (req, res) => {
+const deleteOnecolumn = async (req, res) => {
   // delete one column
 };
 
-const patchOnecolumn = (req, res) => {
+const patchOnecolumn = async (req, res) => {
   // patch one column
 };
 
