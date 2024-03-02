@@ -23,10 +23,12 @@ const cardSchema = new Schema(
     board_id: {
       type: Schema.Types.ObjectId,
       ref: 'Board',
+      required: true,
     },
     column_id: {
       type: Schema.Types.ObjectId,
       ref: 'Column',
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
