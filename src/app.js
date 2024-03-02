@@ -4,6 +4,7 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerDocument } from './helpers/swaggerSetup.js';
 import authRouter from './auth/auth.routes.js';
+import userRouter from './user/user.routes.js';
 import boardRouter from './board/board.routes.js';
 import cardRouter from './card/card.routes.js';
 import columnRouter from './column/column.routes.js';
@@ -17,7 +18,9 @@ app.use(express.static('public'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/api/users', authRouter);
+app.use('/auth', authRouter);
+
+app.use('/users', userRouter);
 
 app.use('/api/boards', boardRouter);
 

@@ -1,12 +1,7 @@
 import express from 'express';
 import authController from '../auth/auth.controller.js';
-import userController from '../user/user.controller.js';
-import {
-  registerSchema,
-  loginSchema,
-  updateUserSchema,
-} from '../user/user.schema.js';
-import { authenticate, validateBody, upload } from '../middlewares/index.js';
+import { registerSchema, loginSchema } from '../user/user.schema.js';
+import { authenticate, validateBody } from '../middlewares/index.js';
 
 const authRouter = express.Router();
 
@@ -16,14 +11,6 @@ authRouter.post(
   authController.registerUser
 );
 authRouter.post('/login', validateBody(loginSchema), authController.loginUser);
-authRouter.use(authenticate);
-authRouter.post('/logout', authController.logoutUser);
-authRouter.get('/current', userController.getCurrentUser);
-authRouter.patch(
-  '/current',
-  validateBody(updateUserSchema),
-  upload.single('avatarUrl'),
-  userController.updateUser
-);
+authRouter.post('/logout', authenticate, authController.logoutUser);
 
 export default authRouter;
