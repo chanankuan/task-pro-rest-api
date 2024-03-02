@@ -20,12 +20,12 @@ const cardSchema = new Schema(
       type: Date,
       required: [true, 'Set deadline date for card'],
     },
-    board_id: {
+    board: {
       type: Schema.Types.ObjectId,
       ref: 'Board',
       required: true,
     },
-    column_id: {
+    column: {
       type: Schema.Types.ObjectId,
       ref: 'Column',
       required: true,
