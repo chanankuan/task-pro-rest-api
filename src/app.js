@@ -4,6 +4,9 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerDocument } from './helpers/swaggerSetup.js';
 import authRouter from './auth/auth.routes.js';
+import boardRouter from './board/board.routes.js';
+import cardRouter from './card/card.routes.js';
+import columnRouter from './column/column.routes.js';
 
 export const app = express();
 
@@ -16,7 +19,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/users', authRouter);
 
-// app.use('/api/contacts', contactsRouter);
+app.use('/api/boards', boardRouter);
+
+app.use('/api/columns', columnRouter);
+
+app.use('/api/cards', cardRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Route not found' });
