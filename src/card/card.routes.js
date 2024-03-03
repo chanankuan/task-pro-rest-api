@@ -1,6 +1,10 @@
 import express from 'express';
 import cardController from './card.controller.js';
-import { createCardSchema, patchCardSchema } from './card.schema.js';
+import {
+  createCardSchema,
+  deleteCardSchema,
+  patchCardSchema,
+} from './card.schema.js';
 import {
   authenticate,
   validateBody,
@@ -15,6 +19,12 @@ cardRouter.post(
   '/',
   validateBody(createCardSchema),
   cardController.createOneCard
+);
+cardRouter.delete(
+  '/:cardId',
+  validateId('cardId'),
+  validateBody(deleteCardSchema),
+  cardController.deleteOneCard
 );
 cardRouter.patch(
   '/:cardId',
