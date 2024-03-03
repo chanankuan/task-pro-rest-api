@@ -1,32 +1,35 @@
 import express from 'express';
 import boardController from './board.controller.js';
 import { patchBoardSchema, createBoardSchema } from './board.schema.js';
-import { authenticate, validateBody } from '../middlewares/index.js';
-import boardMiddleware from './board.middleware.js';
+import { Board } from './board.model.js';
+import * as middleware from '../middlewares/index.js';
 
 const boardRouter = express.Router();
 
-boardRouter.use(authenticate);
+boardRouter.use(middleware.authenticate);
 boardRouter.get('/', boardController.getAllBoards);
 boardRouter.get(
   '/:boardId',
-  boardMiddleware.checkBoardId,
+  middleware.validateId('boardId'),
+  middleware.checkIsItemExists(Board, 'boardId'),
   boardController.getOneBoard
 );
 boardRouter.post(
   '/',
-  validateBody(createBoardSchema),
+  middleware.validateBody(createBoardSchema),
   boardController.createOneBoard
 );
 boardRouter.delete(
   '/:boardId',
-  boardMiddleware.checkBoardId,
+  middleware.validateId('boardId'),
+  middleware.checkIsItemExists(Board, 'boardId'),
   boardController.deleteOneBoard
 );
 boardRouter.patch(
   '/:boardId',
-  boardMiddleware.checkBoardId,
-  validateBody(patchBoardSchema),
+  middleware.validateId('boardId'),
+  middleware.checkIsItemExists(Board, 'boardId'),
+  middleware.validateBody(patchBoardSchema),
   boardController.patchOneBoard
 );
 

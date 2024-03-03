@@ -95,20 +95,6 @@ const patchOneBoard = async (boardId, boardData) => {
   return board.save();
 };
 
-const checkBoardId = async boardId => {
-  const isValidId = Types.ObjectId.isValid(boardId);
-
-  if (!isValidId) {
-    throw HttpError(404);
-  }
-
-  const isBoardExists = await Board.exists({ _id: boardId });
-
-  if (!isBoardExists) {
-    throw HttpError(404);
-  }
-};
-
 const checkIsValidBackgroundId = async backgroundId => {
   const isValidBackgroundId = Types.ObjectId.isValid(backgroundId);
 
@@ -143,5 +129,4 @@ export default {
   createOneBoard,
   deleteOneBoard,
   patchOneBoard,
-  checkBoardId,
 };
