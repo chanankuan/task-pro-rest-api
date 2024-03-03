@@ -10,7 +10,7 @@ const boardSchema = new Schema(
       type: Number,
       required: [true, 'Set id for icon'],
     },
-    background_url: {
+    background: {
       type: String,
       required: [true, 'Set background url for board'],
     },
