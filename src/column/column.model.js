@@ -2,10 +2,6 @@ import { Schema, model } from 'mongoose';
 
 const columnSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: [true, 'Set FE id for column'],
-    },
     title: {
       type: String,
       required: [true, 'Set title for column'],

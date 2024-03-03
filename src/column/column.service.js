@@ -6,7 +6,7 @@ const getAllColumns = async (owner, board) =>
 const getOneColumn = async (id, owner) => await Column.find({ id, owner });
 
 const createOneColumn = async (body, owner) =>
-  await Column.create({ body, owner });
+  await Column.create({ ...body, owner });
 
 const deleteOneColumn = async (id, owner) =>
   await Column.findByIdAndDelete(id).where('owner').equals(owner);
