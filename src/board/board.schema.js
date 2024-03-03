@@ -5,10 +5,7 @@ export const createBoardSchema = Joi.object({
     'string.empty': '"name" cannot be an empty field',
     'any.required': 'missing required field "name"',
   }),
-  iconId: Joi.number().required().messages({
-    'number.empty': '"iconId" cannot be an empty field',
-    'any.required': 'missing required field "iconId"',
-  }),
+  iconId: Joi.number().default(0),
   backgroundId: Joi.string(),
 });
 
