@@ -1,10 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { Board } from './board.model.js';
+import { Background } from '../background/background.model.js';
+import { HttpError } from '../helpers/HttpError.js';
 
 const { ObjectId } = mongoose.Types;
 
-const getAllBoards = async () => {
-  // get all boards
+const getAllBoards = async ({ _id }) => {
+  const filter = { owner: _id };
+
+  return await Board.find(filter);
 };
 
 const getOneBoard = async (boardId, userId) => {
@@ -58,24 +62,65 @@ const getOneBoard = async (boardId, userId) => {
     },
   ]);
 
+  await Background.populate(result, { path: 'background' });
+
   return result;
 };
 
-const createOneBoard = async ({ title, iconId, backgroundURL, userId }) => {
+const createOneBoard = async ({ title, iconId, backgroundId, userId }) => {
+  const defaultBackground = await checkDefaultBackgroundExists();
+
   return Board.create({
     title,
     icon_id: iconId,
-    background: backgroundURL,
+    background: backgroundId ?? defaultBackground._id,
     owner: userId,
   });
 };
 
-const deleteOneBoard = async () => {
-  // delete one board
+const deleteOneBoard = async boardId => await Board.findByIdAndDelete(boardId);
+
+const patchOneBoard = async (boardId, boardData) => {
+  if (!Object.keys(boardData).length) {
+    throw HttpError(400, 'Required at least one field');
+  }
+
+  const background = await checkIsValidBackgroundId(boardData.backgroundId);
+  const board = await Board.findById(boardId);
+
+  board.title = boardData.title ?? board.title;
+  board.icon_id = boardData.iconId ?? board.icon_id;
+  board.background = boardData.backgroundId ? background : board.background;
+
+  return board.save();
 };
 
-const patchOneBoard = async () => {
-  // edit one board
+const checkIsValidBackgroundId = async backgroundId => {
+  const isValidBackgroundId = Types.ObjectId.isValid(backgroundId);
+
+  if (backgroundId && !isValidBackgroundId) {
+    throw HttpError(400, 'Invalid background id');
+  }
+
+  const background = await Background.findById(backgroundId);
+
+  if (backgroundId && !background) {
+    throw HttpError(400, 'Invalid background id');
+  }
+
+  return background;
+};
+
+const checkDefaultBackgroundExists = async () => {
+  const defaultBackground = await Background.findOne({
+    backgroundDesktopURL: '',
+  });
+
+  if (!defaultBackground) {
+    throw HttpError(404, 'Not found background id');
+  }
+
+  return defaultBackground;
 };
 
 export default {

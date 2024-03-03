@@ -2,7 +2,9 @@ import { trycatch } from '../helpers/trycatch.js';
 import boardService from './board.service.js';
 
 const getAllBoards = async (req, res) => {
-  // get all boards
+  const boards = await boardService.getAllBoards(req.user);
+
+  res.json({ boards });
 };
 
 const getOneBoard = async (req, res) => {
@@ -21,11 +23,15 @@ const createOneBoard = async (req, res) => {
 };
 
 const deleteOneBoard = async (req, res) => {
-  // delete one board
+  const board = await boardService.deleteOneBoard(req.params.boardId);
+
+  res.json({ board });
 };
 
 const patchOneBoard = async (req, res) => {
-  // edit one board
+  const board = await boardService.patchOneBoard(req.params.boardId, req.body);
+
+  res.json({ board });
 };
 
 export default {
