@@ -1,15 +1,23 @@
 import { trycatch } from '../helpers/trycatch.js';
+import boardService from './board.service.js';
 
 const getAllBoards = async (req, res) => {
   // get all boards
 };
 
 const getOneBoard = async (req, res) => {
-  // get one boards
+  const { boardId } = req.params;
+  const { _id: userId } = req.user;
+
+  const board = await boardService.getOneBoard(boardId, userId);
+  res.json({ board });
 };
 
 const createOneBoard = async (req, res) => {
-  // get one board
+  const { _id: userId } = req.user;
+  const newBoard = await boardService.createOneBoard({ ...req.body, userId });
+
+  res.status(201).json({ board: newBoard });
 };
 
 const deleteOneBoard = async (req, res) => {

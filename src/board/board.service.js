@@ -1,16 +1,73 @@
+import mongoose from 'mongoose';
 import { Board } from './board.model.js';
-import { HttpError } from '../../helpers/index.js';
+
+const { ObjectId } = mongoose.Types;
 
 const getAllBoards = async () => {
   // get all boards
 };
 
-const getOneBoard = async () => {
-  // get one boards
+const getOneBoard = async (boardId, userId) => {
+  const result = await Board.aggregate([
+    {
+      $match: {
+        _id: new ObjectId(String(boardId)),
+        owner: new ObjectId(String(userId)),
+      },
+    },
+    {
+      $lookup: {
+        from: 'columns',
+        localField: '_id',
+        foreignField: 'board',
+        pipeline: [
+          {
+            $lookup: {
+              from: 'cards',
+              localField: '_id',
+              foreignField: 'column',
+              as: 'cards',
+            },
+          },
+        ],
+        as: 'columns',
+      },
+    },
+    {
+      $project: {
+        title: 1,
+        icon_id: 1,
+        background: 1,
+        owner: 1,
+        columns: {
+          _id: 1,
+          title: 1,
+          board: 1,
+          cards: {
+            _id: 1,
+            title: 1,
+            description: 1,
+            priority: 1,
+            deadline: 1,
+            board: 1,
+            column: 1,
+            owner: 1,
+          },
+        },
+      },
+    },
+  ]);
+
+  return result;
 };
 
-const createOneBoard = async () => {
-  // get one board
+const createOneBoard = async ({ title, iconId, backgroundURL, userId }) => {
+  return Board.create({
+    title,
+    icon_id: iconId,
+    background: backgroundURL,
+    owner: userId,
+  });
 };
 
 const deleteOneBoard = async () => {
