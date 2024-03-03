@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { Board } from './board.model.js';
+import { Background } from '../background/background.model.js';
 
 const { ObjectId } = mongoose.Types;
 
@@ -58,14 +59,20 @@ const getOneBoard = async (boardId, userId) => {
     },
   ]);
 
+  await Background.populate(result, { path: 'background' });
+
   return result;
 };
 
-const createOneBoard = async ({ title, iconId, backgroundURL, userId }) => {
+const createOneBoard = async ({ title, iconId, backgroundId, userId }) => {
+  const defaultBackgrundId = await Background.findOne({
+    backgroundDesktopURL: '',
+  });
+
   return Board.create({
     title,
     icon_id: iconId,
-    background: backgroundURL,
+    background: backgroundId ?? defaultBackgrundId._id,
     owner: userId,
   });
 };

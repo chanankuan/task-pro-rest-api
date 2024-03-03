@@ -9,10 +9,7 @@ export const createBoardSchema = Joi.object({
     'number.empty': '"iconId" cannot be an empty field',
     'any.required': 'missing required field "iconId"',
   }),
-  backgroundURL: Joi.string().required().messages({
-    'string.empty': '"backgroundURL" cannot be an empty field',
-    'any.required': 'missing required field "backgroundURL"',
-  }),
+  backgroundId: Joi.string(),
 });
 
 export const patchBoardSchema = Joi.object({
@@ -22,7 +19,7 @@ export const patchBoardSchema = Joi.object({
   iconId: Joi.number().messages({
     'number.empty': '"iconId" cannot be an empty field',
   }),
-  backgroundURL: Joi.string().messages({
-    'string.empty': '"backgroundURL" cannot be an empty field',
+  backgroundId: Joi.string().messages({
+    'string.empty': '"backgroundId" cannot be an empty field',
   }),
 });
