@@ -6,18 +6,18 @@ import { authenticate, validateBody } from '../middlewares/index.js';
 const columnRouter = express.Router();
 
 columnRouter.use(authenticate);
-columnRouter.get('/', columnController.getAllcolumns);
-columnRouter.get('/:columnId', columnController.getOnecolumn);
+columnRouter.get('/', columnController.getAllColumns);
+columnRouter.get('/:columnId', columnController.getOneColumn);
 columnRouter.post(
   '/',
   validateBody(columnSchema),
-  columnController.createOnecolumn
+  columnController.createOneColumn
 );
-columnRouter.delete('/:columnId', columnController.deleteOnecolumn);
+columnRouter.delete('/:columnId', columnController.deleteOneColumn);
 columnRouter.patch(
   '/:columnId',
   validateBody(columnSchema),
-  columnController.patchOnecolumn
+  columnController.patchOneColumn
 );
 
 export default columnRouter;

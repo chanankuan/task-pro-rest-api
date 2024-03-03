@@ -1,25 +1,22 @@
 import { Column } from './column.model.js';
-import { HttpError } from '../helpers/HttpError.js';
 
-const getAllColumns = async () => {
-  // get all columns
-};
+const getAllColumns = async (owner, board) =>
+  await Column.find({ owner, board });
 
-const getOneColumn = async () => {
-  // get one column
-};
+const getOneColumn = async (id, owner) => await Column.find({ id, owner });
 
-const createOneColumn = async () => {
-  // create one column
-};
+const createOneColumn = async (body, owner) =>
+  await Column.create({ body, owner });
 
-const deleteOneColumn = async () => {
-  // delete one column
-};
+const deleteOneColumn = async (id, owner) =>
+  await Column.findByIdAndDelete(id).where('owner').equals(owner);
 
-const patchOneColumn = async () => {
-  // patch one column
-};
+const patchOneColumn = async (id, updates, owner) =>
+  await Column.findByIdAndUpdate(id, updates, {
+    new: true,
+  })
+    .where('owner')
+    .equals(owner);
 
 export default {
   getAllColumns,
