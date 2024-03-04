@@ -7,7 +7,10 @@
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json", "multipart/form-data"],
-  "servers": [{ "url": "http://localhost:5050" }],
+  "servers": [
+    { "url": "http://localhost:5050" },
+    { "url": "https://task-pro-3a4o.onrender.com" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -16,10 +19,22 @@
     {
       "name": "User",
       "description": "User enpoints"
+    },
+    {
+      "name": "Column",
+      "description": "Column endoiint"
+    },
+    {
+      "name": "Card",
+      "description": "Card endoiint"
+    },
+    {
+      "name": "Background",
+      "description": "Background endoiint"
     }
   ],
   "paths": {
-    "/api/users/register": {
+    "/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -165,6 +180,342 @@
           "400": {
             "description": "Bad request (invalid request body)",
             "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/columns": {
+      "get": {
+        "tags": ["Column"],
+        "summary": "Columns endpoint",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllColumnsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Column"],
+        "summary": "Columns endpoint",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateColumnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/columns/:columnId": {
+      "get": {
+        "tags": ["Column"],
+        "summary": "Columns endpoint",
+        "parameters": [{ "in": "path", "name": "columnId" }],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOneColumnResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Column"],
+        "summary": "Columns endpoint",
+        "parameters": [{ "in": "path", "name": "columnId" }],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOneColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOneColumnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Column"],
+        "summary": "Columns endpoint",
+        "parameters": [{ "in": "path", "name": "columnId" }],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteOneColumnsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/cards": {
+      "get": {
+        "tags": ["Card"],
+        "summary": "Cards endpoint",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllCardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Card"],
+        "summary": "Cards endpoint",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/cards/:cardId": {
+      "get": {
+        "tags": ["Card"],
+        "summary": "Card endpoint",
+        "parameters": [{ "in": "path", "name": "cardId" }],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOneCardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Card"],
+        "summary": "Card endpoint",
+        "parameters": [{ "in": "path", "name": "cardId" }],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Card's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOneCardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOneCardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Card"],
+        "summary": "Card endpoint",
+        "parameters": [{ "in": "path", "name": "cardId" }],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteOneCardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/backgrounds": {
+      "get": {
+        "tags": ["Background"],
+        "summary": "Background endpoint",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllBackgroundsResponse"
+                }
+              }
+            }
           },
           "401": {
             "description": "Bearer auth failed",
@@ -393,6 +744,656 @@
           "email": "user@example.com",
           "avatarURL": "http://unique-avatar-url.com"
         }
+      },
+      "GetAllColumnsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Column's id",
+              "example": "12312789"
+            },
+            "title": {
+              "type": "string",
+              "description": "Columns's title",
+              "example": "Example column"
+            },
+            "board": {
+              "type": "string",
+              "description": "Board's id",
+              "example": "12837981271739"
+            },
+            "owner": {
+              "type": "string",
+              "description": "User's id",
+              "example": "123878319791"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "12312789",
+            "title": "Example collumn",
+            "board": "12837981271739",
+            "owner": "123878319791"
+          },
+          {
+            "_id": "12312782",
+            "title": "Example 2 column",
+            "board": "123789127",
+            "owner": "123878319791"
+          }
+        ]
+      },
+      "CreateColumnRequest": {
+        "type": "object",
+        "required": ["title", "board"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "New Column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "71392878"
+          }
+        },
+        "example": {
+          "title": "New collumn",
+          "board": "1827381981"
+        }
+      },
+      "CreateColumnResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Columns's title",
+            "example": "Example column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "12312789",
+          "title": "Example collumn",
+          "board": "12837981271739",
+          "owner": "123878319791"
+        }
+      },
+      "GetOneColumnResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Columns's title",
+            "example": "Example column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "12312789",
+          "title": "Example collumn",
+          "board": "12837981271739",
+          "owner": "123878319791"
+        }
+      },
+      "UpdateOneColumnRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "New Column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "71392878"
+          }
+        },
+        "example": {
+          "title": "New collumn",
+          "board": "1827381981"
+        }
+      },
+      "UpdateOneColumnResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Columns's title",
+            "example": "Example column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "12312789",
+          "title": "Example collumn",
+          "board": "12837981271739",
+          "owner": "123878319791"
+        }
+      },
+      "DeleteOneColumnsResponse": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Column's id",
+                "example": "12312789"
+              },
+              "title": {
+                "type": "string",
+                "description": "Columns's title",
+                "example": "Example column"
+              },
+              "board": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "12837981271739"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "123878319791"
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Column was deleted"
+          }
+        },
+        "example": {
+          "column": {
+            "_id": "12312789",
+            "title": "Example column",
+            "board": "12837981271739",
+            "owner": "123878319791"
+          },
+          "message": "Column was deleted"
+        }
+      },
+      "GetAllCardsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Card's id",
+              "example": "12312789"
+            },
+            "title": {
+              "type": "string",
+              "description": "Card's title",
+              "example": "Example card"
+            },
+            "description": {
+              "type": "string",
+              "description": "Card's descripiton",
+              "example": "Example description"
+            },
+            "priority": {
+              "type": "string",
+              "descripiton": "Card's priority",
+              "example": "low"
+            },
+            "deadline": {
+              "type": "string",
+              "descripiton": "Card's deadline",
+              "format": "date-time"
+            },
+            "board": {
+              "type": "string",
+              "description": "Board's id",
+              "example": "12837981271739"
+            },
+            "column": {
+              "type": "string",
+              "description": "Column's id",
+              "example": "12837981271731"
+            },
+            "owner": {
+              "type": "string",
+              "description": "User's id",
+              "example": "123878319791"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "12312789",
+            "title": "Example card",
+            "descripiton": "Example description",
+            "priority": "low",
+            "deadline": "2024-04-02T16:33:21.953Z",
+            "board": "12837981271739",
+            "column": "12837981271731",
+            "owner": "123878319791"
+          },
+          {
+            "_id": "123127891",
+            "title": "Example 2 card",
+            "descripiton": "Example description",
+            "priority": "low",
+            "deadline": "2024-04-02T16:33:21.953Z",
+            "board": "12837981271739",
+            "column": "12837981271731",
+            "owner": "123878319791"
+          }
+        ]
+      },
+      "CreateCardRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "priority",
+          "deadline",
+          "boardId",
+          "columnId"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Example card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's descripiton",
+            "example": "Example description"
+          },
+          "priority": {
+            "type": "string",
+            "descripiton": "Card's priority",
+            "example": "low"
+          },
+          "deadline": {
+            "type": "string",
+            "descripiton": "Card's deadline",
+            "format": "date-time"
+          },
+          "boardId": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "columnId": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12837981271731"
+          }
+        },
+        "example": {
+          "title": "Example card",
+          "description": "Example description",
+          "priority": "low",
+          "deadline": "2024-04-02T16:33:21.953Z",
+          "boardId": "12837981271739",
+          "columnId": "12837981271731"
+        }
+      },
+      "CreateCardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Example card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's descripiton",
+            "example": "Example description"
+          },
+          "priority": {
+            "type": "string",
+            "descripiton": "Card's priority",
+            "example": "low"
+          },
+          "deadline": {
+            "type": "string",
+            "descripiton": "Card's deadline",
+            "format": "date-time"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12837981271731"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "123127891",
+          "title": "Example 2 card",
+          "descripiton": "Example description",
+          "priority": "low",
+          "deadline": "2024-04-02T16:33:21.953Z",
+          "board": "12837981271739",
+          "column": "12837981271731",
+          "owner": "123878319791"
+        }
+      },
+      "GetOneCardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Example card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's descripiton",
+            "example": "Example description"
+          },
+          "priority": {
+            "type": "string",
+            "descripiton": "Card's priority",
+            "example": "low"
+          },
+          "deadline": {
+            "type": "string",
+            "descripiton": "Card's deadline",
+            "format": "date-time"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12837981271731"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "123127891",
+          "title": "Example 2 card",
+          "descripiton": "Example description",
+          "priority": "low",
+          "deadline": "2024-04-02T16:33:21.953Z",
+          "board": "12837981271739",
+          "column": "12837981271731",
+          "owner": "123878319791"
+        }
+      },
+      "UpdateOneCardRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Example card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's descripiton",
+            "example": "Example description"
+          },
+          "priority": {
+            "type": "string",
+            "descripiton": "Card's priority",
+            "example": "low"
+          },
+          "deadline": {
+            "type": "string",
+            "descripiton": "Card's deadline",
+            "format": "date-time"
+          },
+          "boardId": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "columnId": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12837981271731"
+          }
+        },
+        "example": {
+          "title": "Example card",
+          "descripiton": "Example description",
+          "priority": "low",
+          "deadline": "2024-04-02T16:33:21.953Z",
+          "boardId": "12837981271739",
+          "columnId": "12837981271731"
+        }
+      },
+      "UpdateOneCardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Example card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's descripiton",
+            "example": "Example description"
+          },
+          "priority": {
+            "type": "string",
+            "descripiton": "Card's priority",
+            "example": "low"
+          },
+          "deadline": {
+            "type": "string",
+            "descripiton": "Card's deadline",
+            "format": "date-time"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12837981271739"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "12837981271731"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "123127891",
+          "title": "Example 2 card",
+          "descripiton": "Example description",
+          "priority": "low",
+          "deadline": "2024-04-02T16:33:21.953Z",
+          "board": "12837981271739",
+          "column": "12837981271731",
+          "owner": "123878319791"
+        }
+      },
+      "DeleteOneCardResponse": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Card's id",
+                "example": "12312789"
+              },
+              "title": {
+                "type": "string",
+                "description": "Card's title",
+                "example": "Example card"
+              },
+              "description": {
+                "type": "string",
+                "description": "Card's descripiton",
+                "example": "Example description"
+              },
+              "priority": {
+                "type": "string",
+                "descripiton": "Card's priority",
+                "example": "low"
+              },
+              "deadline": {
+                "type": "string",
+                "descripiton": "Card's deadline",
+                "format": "date-time"
+              },
+              "board": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "12837981271739"
+              },
+              "column": {
+                "type": "string",
+                "description": "Column's id",
+                "example": "12837981271731"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "123878319791"
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Column was deleted"
+          }
+        },
+        "example": {
+          "card": {
+            "_id": "123127891",
+            "title": "Example 2 card",
+            "descripiton": "Example description",
+            "priority": "low",
+            "deadline": "2024-04-02T16:33:21.953Z",
+            "board": "12837981271739",
+            "column": "12837981271731",
+            "owner": "123878319791"
+          },
+          "message": "Card was deleted"
+        }
+      },
+      "GetAllBackgroundsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Background's id",
+              "example": "12312789"
+            },
+            "backgroundMinURL": {
+              "type": "string",
+              "description": "Background's min 1x url",
+              "example": "https://res.cloudinary.com"
+            },
+            "backgroundMin2xURL": {
+              "type": "string",
+              "description": "Background's min 1x url",
+              "example": "1https://res.cloudinary.com"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "12312789",
+            "backgroundMinURL": "https://res.cloudinary.com/1x",
+            "backgroundMin2xURL": "https://res.cloudinary.com/2x"
+          },
+          {
+            "_id": "12312782",
+            "backgroundMinURL": "https://res.cloudinary.com/1x",
+            "backgroundMin2xURL": "https://res.cloudinary.com/2x"
+          }
+        ]
       }
     },
     "securitySchemes": {
