@@ -2,7 +2,9 @@ import { trycatch } from '../helpers/index.js';
 import userService from './user.service.js';
 
 const getCurrentUser = async (req, res) => {
-  // Please, use service for communication with DB
+  const { name, email, avatar_url, theme } = req.user;
+
+  res.json({ name, email, avatar_url, theme });
 };
 
 const updateUser = async (req, res) => {

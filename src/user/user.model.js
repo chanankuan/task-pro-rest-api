@@ -28,11 +28,6 @@ const userSchema = new Schema(
 );
 
 userSchema.pre('save', async function () {
-  /**
-   * generate hashed password
-   * generate default user avatar
-   * generate verification token
-   */
   this.password = await bcrypt.hash(this.password, 10);
 });
 

@@ -1,17 +1,29 @@
 import authService from './auth.service.js';
-import { HttpError, trycatch } from '../helpers/index.js';
+import { trycatch } from '../helpers/index.js';
 
 const registerUser = async (req, res) => {
-  // Please, use service for communication with DB
+  const { name, email, password } = req.body;
+  const user = await authService.registerUser({ name, email, password });
+
+  res.status(201).json({ user });
 };
 
 const loginUser = async (req, res) => {
-  // Please, use service for communication with DB
+  const { email, password } = req.body;
+
+  const user = await authService.loginUser({ email, password });
+
+  res.status(200).json({ user })
 };
 
 const logoutUser = async (req, res) => {
-  // Please, use service for communication with DB
-  // id is in req.user
+  const { _id } = req.user;
+
+  await authService.logoutUser(_id);
+
+  res.status(200).json({
+    message: "Logout success"
+  })
 };
 
 export default {
