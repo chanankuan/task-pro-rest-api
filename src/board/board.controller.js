@@ -10,8 +10,14 @@ const getAllBoards = async (req, res) => {
 const getOneBoard = async (req, res) => {
   const { boardId } = req.params;
   const { _id: userId } = req.user;
+  const { priority } = req.query;
 
-  const board = await boardService.getOneBoard(boardId, userId);
+  const filters = {};
+  if (priority) {
+    filters.priority = priority;
+  }
+
+  const board = await boardService.getOneBoard(boardId, userId, filters);
   res.json({ board });
 };
 

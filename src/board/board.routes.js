@@ -14,6 +14,12 @@ boardRouter.get(
   middleware.checkIsItemExists(Board, 'boardId'),
   boardController.getOneBoard
 );
+boardRouter.get(
+  '/:boardId/filter',
+  middleware.validateId('boardId'),
+  middleware.checkIsItemExists(Board, 'boardId'),
+  boardController.getOneBoard
+);
 boardRouter.post(
   '/',
   middleware.validateBody(createBoardSchema),

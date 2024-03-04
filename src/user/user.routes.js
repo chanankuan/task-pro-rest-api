@@ -1,6 +1,6 @@
 import express from 'express';
 import userController from '../user/user.controller.js';
-import { updateUserSchema } from '../user/user.schema.js';
+import { updateThemeSchema, updateUserSchema } from '../user/user.schema.js';
 import { authenticate, validateBody, upload } from '../middlewares/index.js';
 
 const userRouter = express.Router();
@@ -12,6 +12,12 @@ userRouter.patch(
   validateBody(updateUserSchema),
   upload.single('avatarUrl'),
   userController.updateUser
+);
+userRouter.patch(
+  '/current/theme',
+  authenticate,
+  validateBody(updateThemeSchema),
+  userController.updateTheme
 );
 
 export default userRouter;

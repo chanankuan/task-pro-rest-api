@@ -67,9 +67,26 @@ const patchOneCard = async (req, res) => {
   res.json(updatedCard);
 };
 
+const changeCardStatus = async (req, res) => {
+  const { _id: userId } = req.user;
+  const { cardId } = req.params;
+  const { columnId } = req.body;
+
+  if (!userId) throw HttpError(401);
+
+  const updatedCard = await cardService.changeCardStatus(
+    cardId,
+    userId,
+    columnId
+  );
+
+  res.json({ card: updatedCard });
+};
+
 export default {
   getAllCards: trycatch(getAllCards),
   createOneCard: trycatch(createOneCard),
   deleteOneCard: trycatch(deleteOneCard),
   patchOneCard: trycatch(patchOneCard),
+  changeCardStatus: trycatch(changeCardStatus),
 };
