@@ -12,7 +12,16 @@ const updateUser = async (req, res) => {
   res.json(user);
 };
 
+const updateTheme = async (req, res) => {
+  const { _id: userId } = req.user;
+  const { theme } = req.body;
+
+  const user = await userService.updateTheme(userId, theme);
+  res.json({ user });
+};
+
 export default {
   getCurrentUser: trycatch(getCurrentUser),
   updateUser: trycatch(updateUser),
+  updateTheme: trycatch(updateTheme),
 };

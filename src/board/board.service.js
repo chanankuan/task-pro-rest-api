@@ -11,7 +11,7 @@ const getAllBoards = async ({ _id }) => {
   return await Board.find(filter);
 };
 
-const getOneBoard = async (boardId, userId) => {
+const getOneBoard = async (boardId, userId, filters) => {
   const result = await Board.aggregate([
     {
       $match: {
@@ -31,6 +31,26 @@ const getOneBoard = async (boardId, userId) => {
               localField: '_id',
               foreignField: 'column',
               as: 'cards',
+            },
+          },
+          {
+            $project: {
+              _id: 1,
+              title: 1,
+              board: 1,
+              cards: {
+                $filter: {
+                  input: '$cards',
+                  as: 'card',
+                  cond: {
+                    $cond: {
+                      if: { $eq: [filters.priority, null] },
+                      then: true,
+                      else: { $eq: ['$$card.priority', filters.priority] },
+                    },
+                  },
+                },
+              },
             },
           },
         ],
@@ -62,7 +82,10 @@ const getOneBoard = async (boardId, userId) => {
     },
   ]);
 
-  await Background.populate(result, { path: 'background' });
+  await Background.populate(result, {
+    path: 'background',
+    select: '-createdAt -updatedAt',
+  });
 
   return result;
 };

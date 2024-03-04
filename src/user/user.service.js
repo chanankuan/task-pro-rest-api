@@ -13,6 +13,10 @@ const updateUser = async (formData, formFile) => {
   return { avatarURL };
 };
 
+const updateTheme = async (userId, theme) => {
+  return User.findByIdAndUpdate({ _id: userId }, { theme }, { new: true });
+};
+
 const saveUserAvatarToCloud = async filePath => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
@@ -25,4 +29,4 @@ const saveUserAvatarToCloud = async filePath => {
   }
 };
 
-export default { updateUser, saveUserAvatarToCloud };
+export default { updateUser, updateTheme, saveUserAvatarToCloud };

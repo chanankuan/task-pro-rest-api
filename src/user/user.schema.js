@@ -45,3 +45,13 @@ export const updateUserSchema = Joi.object({
   }),
   avatarUrl: Joi.any(),
 });
+
+export const updateThemeSchema = Joi.object({
+  theme: Joi.string()
+    .required()
+    .valid('system', 'light', 'dark', 'violet')
+    .messages({
+      'string.empty': '"theme" cannot be an empty field',
+      'any.required': 'missing required field "theme"',
+    }),
+});

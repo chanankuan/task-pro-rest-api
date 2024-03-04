@@ -26,9 +26,17 @@ const patchOneCard = async (cardId, userId, boardId, columnId, cardInfo) =>
     { new: true }
   );
 
+const changeCardStatus = async (cardId, userId, columnId) =>
+  Card.findByIdAndUpdate(
+    { _id: cardId, owner: userId },
+    { column: columnId },
+    { new: true }
+  );
+
 export default {
   getAllCards,
   createOneCard,
   deleteOneCard,
   patchOneCard,
+  changeCardStatus,
 };

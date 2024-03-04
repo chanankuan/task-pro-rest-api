@@ -32,5 +32,10 @@ cardRouter.patch(
   validateBody(patchCardSchema),
   cardController.patchOneCard
 );
+cardRouter.patch(
+  '/:cardId/status',
+  validateId('cardId'),
+  cardController.changeCardStatus
+);
 
 export default cardRouter;
