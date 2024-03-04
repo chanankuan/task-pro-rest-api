@@ -9,6 +9,7 @@ import boardRouter from './board/board.routes.js';
 import cardRouter from './card/card.routes.js';
 import columnRouter from './column/column.routes.js';
 import backgroundRouter from './background/background.routes.js';
+import emailRouter from './email/email.routes.js';
 
 export const app = express();
 
@@ -30,6 +31,8 @@ app.use('/api/columns', columnRouter);
 app.use('/api/cards', cardRouter);
 
 app.use('/api/backgrounds', backgroundRouter);
+
+app.use('/email', emailRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Route not found' });
