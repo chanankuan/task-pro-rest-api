@@ -3,7 +3,6 @@ import { trycatch } from '../helpers/trycatch.js';
 
 const getAllColumns = async (req, res) => {
   const { _id: owner } = req.user;
-  //fetching all columns of a specific board
   const { board } = req.body;
 
   const columns = await columnService.getAllColumns(owner, board);
@@ -12,13 +11,12 @@ const getAllColumns = async (req, res) => {
 };
 
 const getOneColumn = async (req, res) => {
-  //this is FE id, not the DB _id:
-  const { columnId: id } = req.params.id;
+  const { columnId } = req.params;
   if (!id) throw HttpError(401);
 
   const { _id: owner } = req.user;
 
-  const column = await columnService.getOneColumn(id, owner);
+  const column = await columnService.getOneColumn(columnId, owner);
 
   if (!column) throw HttpError(404);
 
@@ -34,13 +32,12 @@ const createOneColumn = async (req, res) => {
 };
 
 const deleteOneColumn = async (req, res) => {
-  //this is FE id, not the DB _id:
-  const { columnId: id } = req.params.id;
+  const { columnId } = req.params;
   if (!id) throw HttpError(401);
 
   const { _id: owner } = req.user;
 
-  const column = await columnService.deleteOneColumn(id, owner);
+  const column = await columnService.deleteOneColumn(columnId, owner);
 
   if (!column) {
     throw HttpError(404);
@@ -50,15 +47,18 @@ const deleteOneColumn = async (req, res) => {
 };
 
 const patchOneColumn = async (req, res) => {
-  //this is FE id, not the DB _id:
-  const { columnId: id } = req.params.id;
+  const { columnId } = req.params;
   if (!id) throw HttpError(401);
 
   const { _id: owner } = req.user;
 
   const updates = req.body;
 
-  const updatedColumn = await columnService.patchOneColumn(id, updates, owner);
+  const updatedColumn = await columnService.patchOneColumn(
+    columnId,
+    updates,
+    owner
+  );
 
   if (!updatedColumn) throw HttpError(404);
 
