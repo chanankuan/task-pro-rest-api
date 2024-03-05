@@ -2,7 +2,7 @@ import { User } from './user.model.js';
 import { cloudinary } from '../utils/cloudinary.js';
 import { HttpError } from '../helpers/index.js';
 import { CLOUDINARY_FOLDER } from '../constants/CloudinaryFolderConstants.js';
-import { ImageService } from '../image/image.service.js';
+import { ImageAvatarService } from '../image/image-avatar.service.js';
 
 const updateUser = async (formData, formFile) => {
   // Update user info in db
@@ -10,8 +10,8 @@ const updateUser = async (formData, formFile) => {
   // TODO configure logic to save updated user with image url to DB
 
   // const avatarURL = await saveUserAvatarToCloud(formFile.path);
-  await ImageService.processAvatarImage({ width: 68, height: 68 });
-  const avatarURL = await ImageService.saveImageToCloud(
+  await ImageAvatarService.processAvatarImage({ width: 68, height: 68 });
+  const avatarURL = await ImageAvatarService.saveImageToCloud(
     CLOUDINARY_FOLDER.AVATARS
   );
 

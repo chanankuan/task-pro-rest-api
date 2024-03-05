@@ -1,6 +1,6 @@
 import { trycatch } from '../helpers/trycatch.js';
 import boardService from './board.service.js';
-import { ImageService } from '../image/image.service.js';
+import { ImageBackgroundService } from '../image/image-background.service.js';
 import { CLOUDINARY_FOLDER } from '../constants/CloudinaryFolderConstants.js';
 
 const getAllBoards = async (req, res) => {
@@ -44,8 +44,8 @@ const createOneBoard = async (req, res) => {
     backgroundMin2xURL: { width: 28, height: 28 },
   };
 
-  await ImageService.processBackgroundImages(options);
-  const backgrounds = await ImageService.saveBackgroundToCloud(
+  await ImageBackgroundService.processBackgroundImages(options);
+  const backgrounds = await ImageBackgroundService.saveBackgroundToCloud(
     CLOUDINARY_FOLDER.CUSTOM_BACKGROUNDS
   );
 
