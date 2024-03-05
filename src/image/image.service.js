@@ -1,5 +1,6 @@
 import multer from 'multer';
 import path from 'path';
+import fse from 'fs-extra';
 import { HttpError } from '../helpers/index.js';
 
 export class ImageService {
@@ -9,9 +10,10 @@ export class ImageService {
 
   static saveOriginalTemporaryFile(name, folder) {
     const storage = multer.diskStorage({
-      destination: (req, file, callback) => {
+      destination: async (req, file, callback) => {
         try {
           this._temporaryDirPath = path.resolve('tmp', folder);
+          await fse.ensureDir(this._temporaryDirPath);
 
           callback(null, this._temporaryDirPath);
         } catch ({ message }) {
