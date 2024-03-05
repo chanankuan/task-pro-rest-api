@@ -14,23 +14,27 @@
   "tags": [
     {
       "name": "Auth",
-      "description": "Auth User enpoints"
+      "description": "Auth User endpoints"
     },
     {
       "name": "User",
-      "description": "User enpoints"
+      "description": "User endpoints"
+    },
+    {
+      "name": "Board",
+      "description": "Board endpoints"
     },
     {
       "name": "Column",
-      "description": "Column endoiint"
+      "description": "Column endpoints"
     },
     {
       "name": "Card",
-      "description": "Card endoiint"
+      "description": "Card endpoints"
     },
     {
       "name": "Background",
-      "description": "Background endoiint"
+      "description": "Background endpoints"
     }
   ],
   "paths": {
@@ -72,7 +76,7 @@
         }
       }
     },
-    "/api/users/login": {
+    "/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -110,7 +114,7 @@
         }
       }
     },
-    "/api/users/logout": {
+    "/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -127,10 +131,10 @@
         }
       }
     },
-    "/api/users/current": {
+    "/users/current": {
       "get": {
         "tags": ["User"],
-        "summary": "User current",
+        "summary": "Get current user",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
@@ -152,7 +156,7 @@
       },
       "put": {
         "tags": ["User"],
-        "summary": "User current",
+        "summary": "Update user",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
@@ -188,12 +192,84 @@
         }
       }
     },
+    "/api/boards": {
+      "get": {
+        "tags": ["Board"],
+        "summary": "Get all board's details",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllBoardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Board"],
+        "summary": "Create a new board",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Board's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBoardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Bearer auth failed",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/columns": {
       "get": {
         "tags": ["Column"],
         "summary": "Columns endpoint",
         "parameters": [],
         "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/getAllColumnsRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -345,28 +421,6 @@
       }
     },
     "/api/cards": {
-      "get": {
-        "tags": ["Card"],
-        "summary": "Cards endpoint",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAllCardsResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Bearer auth failed",
-            "content": {}
-          }
-        }
-      },
       "post": {
         "tags": ["Card"],
         "summary": "Cards endpoint",
@@ -552,9 +606,9 @@
         "type": "object",
         "properties": {
           "_id": {
-            "type": "integer",
+            "type": "string",
             "description": "User's id",
-            "example": 123123123
+            "example": "123878319791"
           },
           "name": {
             "type": "string",
@@ -568,7 +622,7 @@
           }
         },
         "example": {
-          "_id": 123123123,
+          "_id": "123878319791",
           "name": "user",
           "email": "user@example.com"
         }
@@ -594,9 +648,9 @@
         "properties": {
           "user": {
             "_id": {
-              "type": "integer",
+              "type": "string",
               "description": "User's id",
-              "example": 123123123
+              "example": "123878319791"
             },
             "name": {
               "type": "string",
@@ -627,7 +681,7 @@
         },
         "example": {
           "user": {
-            "_id": 123123123,
+            "_id": "123878319791",
             "name": "user",
             "email": "user@example.com",
             "theme": "light",
@@ -641,9 +695,9 @@
         "properties": {
           "user": {
             "_id": {
-              "type": "integer",
+              "type": "string",
               "description": "User's id",
-              "example": 123123123
+              "example": "123878319791"
             },
             "name": {
               "type": "string",
@@ -674,7 +728,7 @@
         },
         "example": {
           "user": {
-            "_id": 123123123,
+            "_id": "123878319791",
             "name": "user",
             "email": "user@example.com",
             "theme": "light",
@@ -718,9 +772,9 @@
         "type": "object",
         "properties": {
           "_id": {
-            "type": "integer",
+            "type": "string",
             "description": "User's id",
-            "example": 123123123
+            "example": "123878319791"
           },
           "name": {
             "type": "string",
@@ -739,10 +793,136 @@
           }
         },
         "example": {
-          "_id": 123123123,
+          "_id": "123878319791",
           "name": "user",
           "email": "user@example.com",
           "avatarURL": "http://unique-avatar-url.com"
+        }
+      },
+      "GetAllBoardsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Board's id",
+              "example": "12312789"
+            },
+            "title": {
+              "type": "string",
+              "description": "Board's title",
+              "example": "Example column"
+            },
+            "icon_id": {
+              "type": "number",
+              "description": "Icon's id",
+              "example": 4
+            },
+            "background": {
+              "type": "string",
+              "description": "Background's id",
+              "example": "12837981271422"
+            },
+            "owner": {
+              "type": "string",
+              "description": "User's id",
+              "example": "123878319791"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "12312789",
+            "title": "Example board",
+            "icon_id": 4,
+            "background": "12837981271422",
+            "owner": "123878319791"
+          },
+          {
+            "_id": "12312789",
+            "title": "Example 2 board",
+            "icon_id": 2,
+            "background": "12837981271422",
+            "owner": "123878319791"
+          }
+        ]
+      },
+      "CreateBoardRequest": {
+        "type": "object",
+        "required": ["title", "iconId", "background"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "New Board"
+          },
+          "iconId": {
+            "type": "number",
+            "description": "Board's id",
+            "example": 2
+          },
+          "background": {
+            "type": "string",
+            "description": "Board's background id",
+            "example": "12837981271422"
+          }
+        },
+        "example": {
+          "title": "New Board",
+          "iconId": 2,
+          "background": "12837981271422"
+        }
+      },
+      "CreateBoardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "12312789"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Example column"
+          },
+          "icon_id": {
+            "type": "number",
+            "description": "Board's id",
+            "example": 2
+          },
+          "background": {
+            "type": "string",
+            "description": "Board's background id",
+            "example": "12837981271422"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "123878319791"
+          }
+        },
+        "example": {
+          "_id": "12312789",
+          "title": "Example column",
+          "icon_id": 2,
+          "background": "12837981271422",
+          "owner": "123878319791"
+        }
+      },
+      "getAllColumnsRequest": {
+        "type": "object",
+        "required": ["board"],
+        "properties": {
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "71392878"
+          }
+        },
+        "example": {
+          "board": "1827381981"
         }
       },
       "GetAllColumnsResponse": {
@@ -775,14 +955,14 @@
         "example": [
           {
             "_id": "12312789",
-            "title": "Example collumn",
+            "title": "Example column",
             "board": "12837981271739",
             "owner": "123878319791"
           },
           {
             "_id": "12312782",
             "title": "Example 2 column",
-            "board": "123789127",
+            "board": "12837981271739",
             "owner": "123878319791"
           }
         ]
@@ -803,7 +983,7 @@
           }
         },
         "example": {
-          "title": "New collumn",
+          "title": "New column",
           "board": "1827381981"
         }
       },
@@ -833,7 +1013,7 @@
         },
         "example": {
           "_id": "12312789",
-          "title": "Example collumn",
+          "title": "Example column",
           "board": "12837981271739",
           "owner": "123878319791"
         }
@@ -864,7 +1044,7 @@
         },
         "example": {
           "_id": "12312789",
-          "title": "Example collumn",
+          "title": "Example column",
           "board": "12837981271739",
           "owner": "123878319791"
         }
@@ -876,16 +1056,10 @@
             "type": "string",
             "description": "Column's title",
             "example": "New Column"
-          },
-          "board": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "71392878"
           }
         },
         "example": {
-          "title": "New collumn",
-          "board": "1827381981"
+          "title": "New column"
         }
       },
       "UpdateOneColumnResponse": {
@@ -914,7 +1088,7 @@
         },
         "example": {
           "_id": "12312789",
-          "title": "Example collumn",
+          "title": "Example column",
           "board": "12837981271739",
           "owner": "123878319791"
         }
@@ -922,45 +1096,14 @@
       "DeleteOneColumnsResponse": {
         "type": "object",
         "properties": {
-          "column": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "Column's id",
-                "example": "12312789"
-              },
-              "title": {
-                "type": "string",
-                "description": "Columns's title",
-                "example": "Example column"
-              },
-              "board": {
-                "type": "string",
-                "description": "Board's id",
-                "example": "12837981271739"
-              },
-              "owner": {
-                "type": "string",
-                "description": "User's id",
-                "example": "123878319791"
-              }
-            }
-          },
           "message": {
             "type": "string",
             "description": "Response message",
-            "example": "Column was deleted"
+            "example": "Column deleted successfully"
           }
         },
         "example": {
-          "column": {
-            "_id": "12312789",
-            "title": "Example column",
-            "board": "12837981271739",
-            "owner": "123878319791"
-          },
-          "message": "Column was deleted"
+          "message": "Column deleted successfully"
         }
       },
       "GetAllCardsResponse": {
@@ -1295,55 +1438,10 @@
       "DeleteOneCardResponse": {
         "type": "object",
         "properties": {
-          "column": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "Card's id",
-                "example": "12312789"
-              },
-              "title": {
-                "type": "string",
-                "description": "Card's title",
-                "example": "Example card"
-              },
-              "description": {
-                "type": "string",
-                "description": "Card's descripiton",
-                "example": "Example description"
-              },
-              "priority": {
-                "type": "string",
-                "descripiton": "Card's priority",
-                "example": "low"
-              },
-              "deadline": {
-                "type": "string",
-                "descripiton": "Card's deadline",
-                "format": "date-time"
-              },
-              "board": {
-                "type": "string",
-                "description": "Board's id",
-                "example": "12837981271739"
-              },
-              "column": {
-                "type": "string",
-                "description": "Column's id",
-                "example": "12837981271731"
-              },
-              "owner": {
-                "type": "string",
-                "description": "User's id",
-                "example": "123878319791"
-              }
-            }
-          },
           "message": {
             "type": "string",
             "description": "Response message",
-            "example": "Column was deleted"
+            "example": "Card deleted successfully"
           }
         },
         "example": {
@@ -1357,7 +1455,7 @@
             "column": "12837981271731",
             "owner": "123878319791"
           },
-          "message": "Card was deleted"
+          "message": "Card deleted successfully"
         }
       },
       "GetAllBackgroundsResponse": {
