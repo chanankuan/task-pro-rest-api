@@ -3,6 +3,7 @@ import boardController from './board.controller.js';
 import { patchBoardSchema, createBoardSchema } from './board.schema.js';
 import { Board } from './board.model.js';
 import * as middleware from '../middlewares/index.js';
+import { ImageService } from '../image/image.service.js';
 
 const boardRouter = express.Router();
 
@@ -22,7 +23,8 @@ boardRouter.get(
 );
 boardRouter.post(
   '/',
-  middleware.validateBody(createBoardSchema),
+  // middleware.validateBody(createBoardSchema),
+  ImageService.saveOriginalTemporaryFile('background', 'backgrounds'),
   boardController.createOneBoard
 );
 boardRouter.delete(
