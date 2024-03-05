@@ -12,7 +12,7 @@ const getAllColumns = async (req, res) => {
 
 const getOneColumn = async (req, res) => {
   const { columnId } = req.params;
-  if (!id) throw HttpError(401);
+  if (!columnId) throw HttpError(401);
 
   const { _id: owner } = req.user;
 
@@ -33,7 +33,7 @@ const createOneColumn = async (req, res) => {
 
 const deleteOneColumn = async (req, res) => {
   const { columnId } = req.params;
-  if (!id) throw HttpError(401);
+  if (!columnId) throw HttpError(401);
 
   const { _id: owner } = req.user;
 
@@ -48,7 +48,7 @@ const deleteOneColumn = async (req, res) => {
 
 const patchOneColumn = async (req, res) => {
   const { columnId } = req.params;
-  if (!id) throw HttpError(401);
+  if (!columnId) throw HttpError(401);
 
   const { _id: owner } = req.user;
 
