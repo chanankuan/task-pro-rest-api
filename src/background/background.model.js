@@ -34,6 +34,12 @@ const backgroundSchema = new Schema(
       type: String,
       required: [true, 'Set min url for background'],
     },
+    type: {
+      type: String,
+      enum: ['custom', 'default'],
+      default: 'custom',
+      required: [true, 'Set type for background'],
+    },
   },
   { versionKey: false, timestamps: true }
 );

@@ -2,6 +2,9 @@ import mongoose, { Types } from 'mongoose';
 import { Board } from './board.model.js';
 import { Background } from '../background/background.model.js';
 import { HttpError } from '../helpers/HttpError.js';
+import { ImageBackgroundService } from '../image/image-background.service.js';
+import { CLOUDINARY_FOLDER } from '../constants/CloudinaryFolderConstants.js';
+import { BACKGROUND_OPTIONS } from '../constants/backgroundOptions.js';
 
 const { ObjectId } = mongoose.Types;
 
@@ -90,13 +93,32 @@ const getOneBoard = async (boardId, userId, filters) => {
   return result;
 };
 
-const createOneBoard = async ({ title, iconId, backgroundId, userId }) => {
+const createOneBoard = async (
+  { title, iconId, backgroundId, userId },
+  file
+) => {
   const defaultBackground = await checkDefaultBackgroundExists();
+
+  if (!file) {
+    return Board.create({
+      title,
+      icon_id: iconId,
+      background: backgroundId ?? defaultBackground._id,
+      owner: userId,
+    });
+  }
+
+  await ImageBackgroundService.processBackgroundImages(BACKGROUND_OPTIONS);
+  const backgrounds = await ImageBackgroundService.saveBackgroundToCloud(
+    CLOUDINARY_FOLDER.CUSTOM_BACKGROUNDS
+  );
+
+  const background = await Background.create(backgrounds);
 
   return Board.create({
     title,
     icon_id: iconId,
-    background: backgroundId ?? defaultBackground._id,
+    background: background._id ?? backgroundId ?? defaultBackground._id,
     owner: userId,
   });
 };

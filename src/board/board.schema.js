@@ -7,6 +7,15 @@ export const createBoardSchema = Joi.object({
   }),
   iconId: Joi.number().default(0),
   backgroundId: Joi.string(),
+  background: Joi.object({
+    filename: Joi.string().required(),
+    path: Joi.string().required(),
+    headers: Joi.object({
+      'content-disposition': Joi.string().required(),
+      'content-type': Joi.string().required(),
+    }).required(),
+    bytes: Joi.number().required(),
+  }),
 });
 
 export const patchBoardSchema = Joi.object({

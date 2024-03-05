@@ -8,6 +8,7 @@ const boardSchema = new Schema(
     },
     icon_id: {
       type: Number,
+      default: 0,
       required: [true, 'Set id for icon'],
     },
     background: {

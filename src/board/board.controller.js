@@ -23,7 +23,10 @@ const getOneBoard = async (req, res) => {
 
 const createOneBoard = async (req, res) => {
   const { _id: userId } = req.user;
-  const newBoard = await boardService.createOneBoard({ ...req.body, userId });
+  const newBoard = await boardService.createOneBoard(
+    { ...req.body, userId },
+    req.file
+  );
 
   res.status(201).json({ board: newBoard });
 };
