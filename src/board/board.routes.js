@@ -23,8 +23,8 @@ boardRouter.get(
 );
 boardRouter.post(
   '/',
-  // middleware.validateBody(createBoardSchema),
   ImageService.saveOriginalTemporaryFile('background', 'backgrounds'),
+  middleware.validateBody(createBoardSchema),
   boardController.createOneBoard
 );
 boardRouter.delete(

@@ -1,7 +1,5 @@
 import { trycatch } from '../helpers/trycatch.js';
 import boardService from './board.service.js';
-import { ImageBackgroundService } from '../image/image-background.service.js';
-import { CLOUDINARY_FOLDER } from '../constants/CloudinaryFolderConstants.js';
 
 const getAllBoards = async (req, res) => {
   const boards = await boardService.getAllBoards(req.user);
@@ -24,32 +22,13 @@ const getOneBoard = async (req, res) => {
 };
 
 const createOneBoard = async (req, res) => {
-  // const { _id: userId } = req.user;
-  // const newBoard = await boardService.createOneBoard({ ...req.body, userId });
-
-  // res.status(201).json({ board: newBoard });
-
-  // const backgroundURL = await ImageService.saveImageToCloud(
-  //   CLOUDINARY_FOLDER.CUSTOM_BACKGROUNDS
-  // );
-
-  const options = {
-    backgroundDesktopURL: { width: 1180, height: 770 },
-    backgroundDesktop2xURL: { width: 1180, height: 770 },
-    backgroundTabletURL: { width: 768, height: 956 },
-    backgroundTablet2xURL: { width: 768, height: 956 },
-    backgroundMobileURL: { width: 375, height: 812 },
-    backgroundMobile2xURL: { width: 375, height: 812 },
-    backgroundMinURL: { width: 28, height: 28 },
-    backgroundMin2xURL: { width: 28, height: 28 },
-  };
-
-  await ImageBackgroundService.processBackgroundImages(options);
-  const backgrounds = await ImageBackgroundService.saveBackgroundToCloud(
-    CLOUDINARY_FOLDER.CUSTOM_BACKGROUNDS
+  const { _id: userId } = req.user;
+  const newBoard = await boardService.createOneBoard(
+    { ...req.body, userId },
+    req.file
   );
 
-  res.json(backgrounds);
+  res.status(201).json({ board: newBoard });
 };
 
 const deleteOneBoard = async (req, res) => {

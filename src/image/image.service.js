@@ -30,12 +30,16 @@ export class ImageService {
     });
 
     const fileFilter = (req, file, callback) => {
-      if (!file.mimetype.startsWith('image')) {
-        callback(HttpError(400, 'Invalid file format'), false);
+      if (!req.body.background || req.body.background.trim() === '') {
+        callback(null, true);
         return;
       }
 
-      callback(null, true);
+      if (!file.mimetype.startsWith('image')) {
+        callback(HttpError(400, 'Invalid file format'), false);
+      } else {
+        callback(null, true);
+      }
     };
 
     const multerUpload = multer({

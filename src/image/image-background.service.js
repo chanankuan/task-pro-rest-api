@@ -6,7 +6,7 @@ import { HttpError } from '../helpers/index.js';
 import { ImageService } from './image.service.js';
 
 export class ImageBackgroundService extends ImageService {
-  static _temporaryBackgrounds = {
+  static #temporaryBackgrounds = {
     backgroundDesktopURL: '',
     backgroundDesktop2xURL: '',
     backgroundTabletURL: '',
@@ -24,18 +24,18 @@ export class ImageBackgroundService extends ImageService {
     const uploadImage = async key => {
       try {
         const result = await cloudinary.uploader.upload(
-          this._temporaryBackgrounds[key],
+          this.#temporaryBackgrounds[key],
           { folder }
         );
 
         background[key] = result.url;
-        await fse.remove(this._temporaryBackgrounds[key]);
+        await fse.remove(this.#temporaryBackgrounds[key]);
       } catch {
         throw HttpError(400, 'Failed to upload image');
       }
     };
 
-    Object.keys(this._temporaryBackgrounds).forEach(key =>
+    Object.keys(this.#temporaryBackgrounds).forEach(key =>
       uploadPromises.push(uploadImage(key))
     );
 
@@ -52,19 +52,19 @@ export class ImageBackgroundService extends ImageService {
   static async processBackgroundImages(options) {
     const image = await Jimp.read(super._temporaryFilePath);
 
-    Object.keys(this._temporaryBackgrounds).forEach(key => {
-      this._temporaryBackgrounds[key] = image;
+    Object.keys(this.#temporaryBackgrounds).forEach(key => {
+      this.#temporaryBackgrounds[key] = image;
 
       const temporaryCurrentBackgroundPath =
         path.join(super._temporaryDirPath, key) +
         '-' +
         super._temporaryFileName;
 
-      this._temporaryBackgrounds[key]
+      this.#temporaryBackgrounds[key]
         .cover(options[key]?.width ?? 200, options[key]?.height ?? 200)
         .writeAsync(temporaryCurrentBackgroundPath);
 
-      this._temporaryBackgrounds[key] = temporaryCurrentBackgroundPath;
+      this.#temporaryBackgrounds[key] = temporaryCurrentBackgroundPath;
     });
   }
 }
