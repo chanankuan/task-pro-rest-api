@@ -1,5 +1,7 @@
 import mongoose, { Types } from 'mongoose';
 import { Board } from './board.model.js';
+import { Column } from '../column/column.model.js';
+import { Card } from '../card/card.model.js';
 import { Background } from '../background/background.model.js';
 import { HttpError } from '../helpers/HttpError.js';
 import { ImageBackgroundService } from '../image/image-background.service.js';
@@ -123,7 +125,11 @@ const createOneBoard = async (
   });
 };
 
-const deleteOneBoard = async boardId => await Board.findByIdAndDelete(boardId);
+const deleteOneBoard = async boardId => {
+  await Board.findByIdAndDelete(boardId);
+  await Column.deleteMany({ board: boardId });
+  await Card.deleteMany({ board: boardId });
+};
 
 const patchOneBoard = async (boardId, boardData) => {
   if (!Object.keys(boardData).length) {

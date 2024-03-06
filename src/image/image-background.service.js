@@ -51,6 +51,7 @@ export class ImageBackgroundService extends ImageService {
 
   static async processBackgroundImages(options) {
     const image = await Jimp.read(super._temporaryFilePath);
+    console.log(image);
 
     Object.keys(this.#temporaryBackgrounds).forEach(key => {
       this.#temporaryBackgrounds[key] = image;

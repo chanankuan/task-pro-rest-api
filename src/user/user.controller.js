@@ -4,14 +4,15 @@ import userService from './user.service.js';
 const getCurrentUser = async (req, res) => {
   const { name, email, avatar_url, theme } = req.user;
 
-  res.json({ name, email, avatar_url, theme });
+  res.json({ user: { name, email, avatar_url, theme } });
 };
 
 const updateUser = async (req, res) => {
-  // Please, use service for communication with DB
-  const user = await userService.updateUser(req.body, req.file);
+  const { _id: userId } = req.user;
+  const { body, file } = req;
+  const user = await userService.updateUser(userId, body, file);
 
-  res.json(user);
+  res.json({ user });
 };
 
 const updateTheme = async (req, res) => {
@@ -19,7 +20,7 @@ const updateTheme = async (req, res) => {
   const { theme } = req.body;
 
   const user = await userService.updateTheme(userId, theme);
-  res.json({ user });
+  res.json({ theme: user.theme });
 };
 
 export default {

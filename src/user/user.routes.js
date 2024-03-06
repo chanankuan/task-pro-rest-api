@@ -11,8 +11,7 @@ userRouter.patch(
   '/current',
   authenticate,
   validateBody(updateUserSchema),
-  // upload.single('avatarUrl'),
-  ImageService.saveOriginalTemporaryFile('avatarUrl', 'avatars'),
+  ImageService.saveOriginalTemporaryFile('avatar_url', 'avatars'),
   userController.updateUser
 );
 userRouter.patch(

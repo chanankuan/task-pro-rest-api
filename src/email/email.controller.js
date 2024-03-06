@@ -5,7 +5,11 @@ const sendHelpEmail = async (req, res) => {
   const { name, email: userEmail } = req.user;
   const { email: recipient, comment } = req.body;
 
-  emailService.sendHelpEmail(userEmail, name, { recipient, comment });
+  try {
+    emailService.sendHelpEmail(userEmail, name, { recipient, comment });
+  } catch (error) {
+    HttpError(400, 'Bad request');
+  }
   res.json({ message: 'Email sent successfully' });
 };
 

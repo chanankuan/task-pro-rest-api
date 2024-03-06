@@ -34,7 +34,7 @@ const createOneBoard = async (req, res) => {
 const deleteOneBoard = async (req, res) => {
   const board = await boardService.deleteOneBoard(req.params.boardId);
 
-  res.json({ board });
+  res.json({ message: 'Board deleted successfully' });
 };
 
 const patchOneBoard = async (req, res) => {

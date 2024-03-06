@@ -10,7 +10,7 @@ const getAllCards = async (req, res) => {
 
   const cards = await cardService.getAllCards(_id, boardId, columnId);
 
-  res.json(cards);
+  res.json({ cards });
 };
 
 const createOneCard = async (req, res) => {
@@ -45,7 +45,7 @@ const deleteOneCard = async (req, res) => {
   );
   if (!result) throw HttpError(400, 'Card with this id is not found');
 
-  res.json({ message: 'Card was deleted successfully' });
+  res.json({ message: 'Card deleted successfully' });
 };
 
 const patchOneCard = async (req, res) => {
@@ -64,7 +64,7 @@ const patchOneCard = async (req, res) => {
 
   if (!updatedCard) throw HttpError(400, 'Card with this id is not found');
 
-  res.json(updatedCard);
+  res.json({ card: updatedCard });
 };
 
 const changeCardStatus = async (req, res) => {

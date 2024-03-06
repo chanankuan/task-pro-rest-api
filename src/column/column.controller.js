@@ -7,7 +7,7 @@ const getAllColumns = async (req, res) => {
 
   const columns = await columnService.getAllColumns(owner, board);
 
-  res.status(200).json(columns);
+  res.status(200).json({ columns });
 };
 
 const getOneColumn = async (req, res) => {
@@ -20,7 +20,7 @@ const getOneColumn = async (req, res) => {
 
   if (!column) throw HttpError(404);
 
-  res.status(200).json(column);
+  res.status(200).json({ column });
 };
 
 const createOneColumn = async (req, res) => {
@@ -28,7 +28,7 @@ const createOneColumn = async (req, res) => {
 
   const newColumn = await columnService.createOneColumn(req.body, owner);
 
-  res.status(201).json(newColumn);
+  res.status(201).json({ column: newColumn });
 };
 
 const deleteOneColumn = async (req, res) => {
@@ -43,7 +43,7 @@ const deleteOneColumn = async (req, res) => {
     throw HttpError(404);
   }
 
-  res.status(200).json({ column: column, message: 'Column was deleted' });
+  res.status(200).json({ message: 'Column deleted successfully' });
 };
 
 const patchOneColumn = async (req, res) => {
@@ -62,7 +62,7 @@ const patchOneColumn = async (req, res) => {
 
   if (!updatedColumn) throw HttpError(404);
 
-  res.status(200).json(updatedColumn);
+  res.status(200).json({ column: updatedColumn });
 };
 
 export default {
