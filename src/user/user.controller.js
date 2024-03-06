@@ -2,9 +2,9 @@ import { trycatch } from '../helpers/index.js';
 import userService from './user.service.js';
 
 const getCurrentUser = async (req, res) => {
-  const { name, email, avatar_url, theme } = req.user;
+  const { _id, name, email, avatar_url, theme } = req.user;
 
-  res.json({ user: { name, email, avatar_url, theme } });
+  res.json({ user: { _id, name, email, avatar_url, theme } });
 };
 
 const updateUser = async (req, res) => {
@@ -17,7 +17,7 @@ const updateUser = async (req, res) => {
 
 const updateTheme = async (req, res) => {
   const { _id: userId } = req.user;
-  const { theme } = req.body;
+  const theme = req.body;
 
   const user = await userService.updateTheme(userId, theme);
   res.json({ theme: user.theme });
