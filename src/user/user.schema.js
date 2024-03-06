@@ -47,11 +47,8 @@ export const updateUserSchema = Joi.object({
 });
 
 export const updateThemeSchema = Joi.object({
-  theme: Joi.string()
-    .required()
-    .valid('system', 'light', 'dark', 'violet')
-    .messages({
-      'string.empty': '"theme" cannot be an empty field',
-      'any.required': 'missing required field "theme"',
-    }),
+  theme: Joi.string().required().valid('light', 'dark', 'violet').messages({
+    'string.empty': '"theme" cannot be an empty field',
+    'any.required': 'missing required field "theme"',
+  }),
 });
