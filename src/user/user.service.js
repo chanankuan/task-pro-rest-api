@@ -1,10 +1,13 @@
+import bcrypt from 'bcryptjs';
 import { User } from './user.model.js';
-import { cloudinary } from '../utils/cloudinary.js';
-import { HttpError } from '../helpers/index.js';
 import { CLOUDINARY_FOLDER } from '../constants/CloudinaryFolderConstants.js';
 import { ImageAvatarService } from '../image/image-avatar.service.js';
 
 const updateUser = async (userId, formData, formFile) => {
+  if (formData.password) {
+    formData.password = await bcrypt.hash(formData.password, 10);
+  }
+
   if (!formFile) {
     return User.findByIdAndUpdate({ _id: userId }, formData, {
       new: true,
