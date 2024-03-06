@@ -17,7 +17,7 @@ const updateUser = async (req, res) => {
 
 const updateTheme = async (req, res) => {
   const { _id: userId } = req.user;
-  const theme = req.body;
+  const { theme } = req.body;
 
   const user = await userService.updateTheme(userId, theme);
   res.json({ theme: user.theme });
