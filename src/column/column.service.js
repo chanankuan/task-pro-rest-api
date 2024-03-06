@@ -9,9 +9,12 @@ const getOneColumn = async (_id, owner) => await Column.find({ _id, owner });
 const createOneColumn = async (body, owner) =>
   await Column.create({ ...body, owner });
 
-const deleteOneColumn = async (columnId, owner) => {
-  await Column.findByIdAndDelete(columnId).where('owner').equals(owner);
-  await Card.deleteMany({ column: columnId });
+const deleteOneColumn = async (_id, owner) => {
+  const deletedColumn = await Column.findByIdAndDelete(_id)
+    .where('owner')
+    .equals(owner);
+  await Card.deleteMany({ column: _id });
+  return deletedColumn;
 };
 
 const patchOneColumn = async (_id, updates, owner) =>

@@ -1,5 +1,6 @@
 import columnService from './column.service.js';
 import { trycatch } from '../helpers/trycatch.js';
+import { HttpError } from '../helpers/HttpError.js';
 
 const getAllColumns = async (req, res) => {
   const { _id: owner } = req.user;
@@ -39,9 +40,7 @@ const deleteOneColumn = async (req, res) => {
 
   const column = await columnService.deleteOneColumn(columnId, owner);
 
-  if (!column) {
-    throw HttpError(404);
-  }
+  if (!column) throw HttpError(404);
 
   res.status(200).json({ message: 'Column deleted successfully' });
 };
