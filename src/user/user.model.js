@@ -18,8 +18,8 @@ const userSchema = new Schema(
     },
     theme: {
       type: String,
-      enum: ['system', 'light', 'violet', 'dark'],
-      default: 'system',
+      enum: ['light', 'violet', 'dark'],
+      default: 'dark',
     },
     avatar_url: { type: String, default: 'default' },
     token: { type: String, default: '' },
