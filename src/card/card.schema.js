@@ -23,6 +23,14 @@ export const createCardSchema = Joi.object({
     'string.empty': '"deadline" cannot be an empty field',
     'any.required': 'missing required field "deadline"',
   }),
+  boardId: Joi.string().required().messages({
+    'string.base': '"boardId" must be a string',
+    'any.required': 'missing required field "boardId"',
+  }),
+  columnId: Joi.string().required().messages({
+    'string.base': '"columnId" must be a string',
+    'any.required': 'missing required field "columnId"',
+  }),
 });
 
 export const patchCardSchema = Joi.object({
@@ -42,5 +50,13 @@ export const patchCardSchema = Joi.object({
   deadline: Joi.date().min(new Date()).messages({
     'string.base': '"deadline" must be a string',
     'date.min': '"deadline" can not be less than the current date',
+  }),
+  boardId: Joi.string().required().messages({
+    'string.base': '"boardId" must be a string',
+    'any.required': 'missing required field "boardId"',
+  }),
+  columnId: Joi.string().required().messages({
+    'string.base': '"columnId" must be a string',
+    'any.required': 'missing required field "columnId"',
   }),
 });
