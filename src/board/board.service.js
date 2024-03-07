@@ -87,8 +87,6 @@ const getOneBoard = async (boardId, userId, filters) => {
     },
   ]);
 
-  console.log(result);
-
   await Background.populate(result, {
     path: 'background',
     select: '-createdAt -updatedAt',
@@ -133,7 +131,7 @@ const deleteOneBoard = async boardId => {
   await Card.deleteMany({ board: boardId });
 };
 
-const patchOneBoard = async (boardId, boardData) => {
+const patchOneBoard = async (boardId, boardData, boardFile) => {
   if (!Object.keys(boardData).length) {
     throw HttpError(400, 'Required at least one field');
   }
@@ -143,7 +141,20 @@ const patchOneBoard = async (boardId, boardData) => {
 
   board.title = boardData.title ?? board.title;
   board.icon_id = boardData.iconId ?? board.icon_id;
-  board.background = boardData.backgroundId ? background : board.background;
+
+  if (!boardFile) {
+    board.background = boardData.backgroundId ? background : board.background;
+    return board.save();
+  }
+
+  await ImageBackgroundService.processBackgroundImages(BACKGROUND_OPTIONS);
+  const backgrounds = await ImageBackgroundService.saveBackgroundToCloud(
+    CLOUDINARY_FOLDER.CUSTOM_BACKGROUNDS
+  );
+
+  const customBackground = await Background.create(backgrounds);
+
+  board.background = customBackground;
 
   return board.save();
 };

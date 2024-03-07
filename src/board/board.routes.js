@@ -37,6 +37,7 @@ boardRouter.patch(
   '/:boardId',
   middleware.validateId('boardId'),
   middleware.checkIsItemExists(Board, 'boardId'),
+  ImageService.saveOriginalTemporaryFile('background', 'backgrounds'),
   middleware.validateBody(patchBoardSchema),
   boardController.patchOneBoard
 );

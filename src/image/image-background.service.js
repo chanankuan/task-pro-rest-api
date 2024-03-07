@@ -45,13 +45,17 @@ export class ImageBackgroundService extends ImageService {
 
       return background;
     } catch {
+      Object.keys(this.#temporaryBackgrounds).forEach(
+        async key => await fse.remove(this.#temporaryBackgrounds[key])
+      );
+      await fse.remove(super._temporaryFilePath);
+
       throw HttpError(400, 'Cloud connection error');
     }
   }
 
   static async processBackgroundImages(options) {
     const image = await Jimp.read(super._temporaryFilePath);
-    console.log(image);
 
     Object.keys(this.#temporaryBackgrounds).forEach(key => {
       this.#temporaryBackgrounds[key] = image;

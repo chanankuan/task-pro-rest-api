@@ -38,7 +38,11 @@ const deleteOneBoard = async (req, res) => {
 };
 
 const patchOneBoard = async (req, res) => {
-  const board = await boardService.patchOneBoard(req.params.boardId, req.body);
+  const board = await boardService.patchOneBoard(
+    req.params.boardId,
+    req.body,
+    req.file
+  );
 
   res.json({ board });
 };
