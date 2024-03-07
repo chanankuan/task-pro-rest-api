@@ -87,6 +87,8 @@ const getOneBoard = async (boardId, userId, filters) => {
     },
   ]);
 
+  console.log(result);
+
   await Background.populate(result, {
     path: 'background',
     select: '-createdAt -updatedAt',

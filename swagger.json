@@ -299,11 +299,20 @@
         }
       }
     },
-    "/api/boards/:boardId": {
+    "/api/boards/{boardId}": {
       "get": {
         "tags": ["Board"],
         "summary": "Get one board",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "boardId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -325,7 +334,16 @@
       "patch": {
         "tags": ["Board"],
         "summary": "Update one board",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "boardId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Board's object",
@@ -362,7 +380,16 @@
       "delete": {
         "tags": ["Board"],
         "summary": "Delete one board",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "boardId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
@@ -386,11 +413,28 @@
         }
       }
     },
-    "/api/boards/:boardId/filter": {
+    "/api/boards/{boardId}/filter": {
       "get": {
         "tags": ["Board"],
         "summary": "Get one filtered board",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "boardId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "priority",
+            "schema": {
+              "type": "string",
+              "enum": ["without priority", "low", "medium", "high"]
+            }
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -413,7 +457,7 @@
     "/api/columns": {
       "get": {
         "tags": ["Column"],
-        "summary": "Columns endpoint",
+        "summary": "Returns all columns",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
@@ -446,7 +490,7 @@
       },
       "post": {
         "tags": ["Column"],
-        "summary": "Columns endpoint",
+        "summary": "Create a new column",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
@@ -485,7 +529,7 @@
     "/api/columns/:columnId": {
       "patch": {
         "tags": ["Column"],
-        "summary": "Columns endpoint",
+        "summary": "Update one column",
         "parameters": [{ "in": "path", "name": "columnId" }],
         "security": [{ "Bearer": [] }],
         "requestBody": {
@@ -526,7 +570,7 @@
       },
       "delete": {
         "tags": ["Column"],
-        "summary": "Columns endpoint",
+        "summary": "Delete one column",
         "parameters": [{ "in": "path", "name": "columnId" }],
         "security": [{ "Bearer": [] }],
         "responses": {
@@ -816,7 +860,11 @@
       "LogoutResponse": {
         "type": "object",
         "properties": {
-          "message": "Logout success"
+          "message": {
+            "type": "string",
+            "description": "Logout message",
+            "example": "logout success"
+          }
         },
         "example": {
           "message": "Logout success"
@@ -846,16 +894,11 @@
               "description": "User's theme",
               "example": "light"
             },
-            "avatarURL": {
+            "avatar_url": {
               "type": "string",
               "description": "User's avatar",
               "example": "http://cloudinary/avatar"
             }
-          },
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZThhMmIzNThkZDExY2I0ZDM1ZDZkNyIsImlhdCI6MTcwOTc0NDgxOSwiZXhwIjoxNzA5ODI3NjE5fQ.wASKjJ5_-F0S1pmq2JMPrB30HcN_bg4OY-ws7ahI2SS"
           }
         },
         "example": {
@@ -864,8 +907,7 @@
             "name": "user",
             "email": "user@example.com",
             "theme": "light",
-            "avatarURL": "http://default-avatar-url.com",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZThhMmIzNThkZDExY2I0ZDM1ZDZkNyIsImlhdCI6MTcwOTc0NDgxOSwiZXhwIjoxNzA5ODI3NjE5fQ.wASKjJ5_-F0S1pmq2JMPrB30HcN_bg4OY-ws7ahI2SS"
+            "avatar_url": "http://default-avatar-url.com"
           }
         }
       },
@@ -911,14 +953,19 @@
           "name": {
             "type": "string",
             "description": "User's name",
-            "example": "user"
+            "example": "User"
           },
           "email": {
             "type": "string",
             "description": "User's email",
             "format": "email"
           },
-          "avatarURL": {
+          "theme": {
+            "type": "string",
+            "description": "Webpage theme",
+            "example": "dark"
+          },
+          "avatar_url": {
             "type": "string",
             "description": "User's avatar",
             "example": "http://cloudinary/avatar"
@@ -928,7 +975,8 @@
           "_id": "65e230b2c9cc70d4b01b3cdb",
           "name": "user",
           "email": "user@example.com",
-          "avatarURL": "http://unique-avatar-url.com"
+          "theme": "dark",
+          "avatar_url": "http://unique-avatar-url.com"
         }
       },
       "UpdateThemeRequest": {
@@ -947,14 +995,14 @@
       "UpdateThemeResponse": {
         "type": "object",
         "properties": {
-          "message": {
+          "theme": {
             "type": "string",
-            "description": "Response message",
-            "example": "Theme updated successfully"
+            "description": "Webpage theme",
+            "example": "light"
           }
         },
         "example": {
-          "message": "Theme updated successfully"
+          "theme": "light"
         }
       },
       "GetAllBoardsResponse": {
@@ -965,12 +1013,12 @@
             "_id": {
               "type": "string",
               "description": "Board's id",
-              "example": "12312789"
+              "example": "65e3cf74f855ba698a213c6a"
             },
             "title": {
               "type": "string",
               "description": "Board's title",
-              "example": "My column"
+              "example": "My Board"
             },
             "icon_id": {
               "type": "number",
@@ -991,14 +1039,14 @@
         },
         "example": [
           {
-            "_id": "12312789",
+            "_id": "65e3cf74f855ba698a213c6a",
             "title": "My board",
             "icon_id": 4,
             "background": "65e3dff38418fbee87899699",
             "owner": "65e230b2c9cc70d4b01b3cdb"
           },
           {
-            "_id": "12312789",
+            "_id": "65e3cf74f855ba698a213c6a",
             "title": "My board 2",
             "icon_id": 2,
             "background": "65e3dff38418fbee87899699",
@@ -1017,7 +1065,7 @@
           },
           "iconId": {
             "type": "number",
-            "description": "Board's id",
+            "description": "Board's icon id",
             "example": 2
           },
           "background": {
@@ -1038,16 +1086,16 @@
           "_id": {
             "type": "string",
             "description": "Board's id",
-            "example": "12312789"
+            "example": "65e3cf74f855ba698a213c6a"
           },
           "title": {
             "type": "string",
             "description": "Board's title",
-            "example": "My column"
+            "example": "New Board"
           },
           "icon_id": {
             "type": "number",
-            "description": "Board's id",
+            "description": "Board's icon id",
             "example": 2
           },
           "background": {
@@ -1062,8 +1110,8 @@
           }
         },
         "example": {
-          "_id": "12312789",
-          "title": "My column",
+          "_id": "65e3cf74f855ba698a213c6a",
+          "title": "New Board",
           "icon_id": 2,
           "background": "65e3dff38418fbee87899699",
           "owner": "65e230b2c9cc70d4b01b3cdb"
@@ -1075,7 +1123,7 @@
           "_id": {
             "type": "string",
             "description": "Board's id",
-            "example": "12312789"
+            "example": "65e3cf74f855ba698a213c6a"
           },
           "title": {
             "type": "string",
@@ -1141,6 +1189,34 @@
             "type": "string",
             "description": "User's id",
             "example": "65e230b2c9cc70d4b01b3cdb"
+          },
+          "columns": {
+            "type": "array",
+            "item": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Column's id",
+                  "example": "65e486d8a7aa7d3afd38ba20"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Column's title",
+                  "example": "My Column"
+                },
+                "board": {
+                  "type": "string",
+                  "description": "Board's id",
+                  "example": "65e3cf74f855ba698a213c6a"
+                },
+                "cards": {
+                  "type": "string",
+                  "description": "Column's title",
+                  "example": "My Column"
+                }
+              }
+            }
           }
         },
         "example": [
@@ -1177,28 +1253,9 @@
                     "owner": "65e230b2c9cc70d4b01b3cdb"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "_id": "65e3cf74f855ba698a213c6a",
-            "title": "My board",
-            "icon_id": 2,
-            "background": {
-              "_id": "65e3dff38418fbee8789969a",
-              "backgroundDesktopURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo",
-              "backgroundDesktop2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/znzmgrxhlmmjzpvu9xkk",
-              "backgroundTabletURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/grtt2crqkvwmhymgroaw",
-              "backgroundTablet2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/lbkuvh0yfurdypldzcms",
-              "backgroundMobileURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/vz7go2bvibakllryawcy",
-              "backgroundMobile2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ojtc1uzseexfgeyxgoii",
-              "backgroundMinURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/trkpqfjlbk1591xfdktc",
-              "backgroundMin2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/zfu50adll3bo3ghgraiv"
-            },
-            "owner": "65e230b2c9cc70d4b01b3cdb",
-            "columns": [
+              },
               {
-                "_id": "65e486d8a7aa7d3afd38ba20",
+                "_id": "65e486d8a7aa7d3afd38ba43",
                 "title": "New column title",
                 "board": "65e3cf74f855ba698a213c6a",
                 "cards": [
@@ -1206,7 +1263,7 @@
                     "_id": "65e3cb094d42695fc1b699c0",
                     "title": "The Watch Spot Design",
                     "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
-                    "priority": "high",
+                    "priority": "low",
                     "deadline": "2024-03-02T16:33:21.953Z",
                     "board": "65e3cf74f855ba698a213c6a",
                     "column": "65e486d8a7aa7d3afd38ba20",
@@ -1223,17 +1280,17 @@
         "properties": {
           "_id": {
             "type": "string",
-            "description": "Board id",
-            "example": "12312789"
+            "description": "Board's id",
+            "example": "65e3cf74f855ba698a213c6a"
           },
           "title": {
             "type": "string",
-            "description": "Board title",
+            "description": "Board's title",
             "example": "My board"
           },
           "icon_id": {
             "type": "number",
-            "description": "Icon id",
+            "description": "Icon's id",
             "example": 4
           },
           "background": {
@@ -1288,13 +1345,41 @@
           },
           "owner": {
             "type": "string",
-            "description": "User id",
+            "description": "User's id",
             "example": "65e230b2c9cc70d4b01b3cdb"
+          },
+          "columns": {
+            "type": "array",
+            "item": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Column's id",
+                  "example": "65e486d8a7aa7d3afd38ba20"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Column's title",
+                  "example": "My Column"
+                },
+                "board": {
+                  "type": "string",
+                  "description": "Board's id",
+                  "example": "65e3cf74f855ba698a213c6a"
+                },
+                "cards": {
+                  "type": "string",
+                  "description": "Column's title",
+                  "example": "My Column"
+                }
+              }
+            }
           }
         },
         "example": [
           {
-            "_id": "12312789",
+            "_id": "65e3cf59f855ba698a213c67",
             "title": "My board",
             "icon_id": 4,
             "background": {
@@ -1326,15 +1411,25 @@
                     "owner": "65e230b2c9cc70d4b01b3cdb"
                   }
                 ]
+              },
+              {
+                "_id": "65e486d8a7aa7d3afd38ba43",
+                "title": "New column title",
+                "board": "65e3cf74f855ba698a213c6a",
+                "cards": [
+                  {
+                    "_id": "65e3cb094d42695fc1b699c0",
+                    "title": "The Watch Spot Design",
+                    "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
+                    "priority": "low",
+                    "deadline": "2024-03-02T16:33:21.953Z",
+                    "board": "65e3cf74f855ba698a213c6a",
+                    "column": "65e486d8a7aa7d3afd38ba20",
+                    "owner": "65e230b2c9cc70d4b01b3cdb"
+                  }
+                ]
               }
             ]
-          },
-          {
-            "_id": "12312789",
-            "title": "My board",
-            "icon_id": 2,
-            "background": "65e3dff38418fbee87899699",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
           }
         ]
       },
@@ -1343,7 +1438,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "description": "Board title",
+            "description": "Board's title",
             "example": "My board"
           },
           "iconId": {
@@ -1353,7 +1448,7 @@
           },
           "backgroundId": {
             "type": "string",
-            "description": "Board background id",
+            "description": "Board's background id",
             "example": "65e3dff38418fbee87899699"
           }
         },
@@ -1368,17 +1463,17 @@
         "properties": {
           "_id": {
             "type": "string",
-            "description": "Board id",
-            "example": "12312789"
+            "description": "Board's id",
+            "example": "65e3cf74f855ba698a213c6a"
           },
           "title": {
             "type": "string",
-            "description": "Board title",
+            "description": "Board's title",
             "example": "My column"
           },
           "icon_id": {
             "type": "number",
-            "description": "Board id",
+            "description": "Board's id",
             "example": 2
           },
           "background": {
@@ -1393,7 +1488,7 @@
           }
         },
         "example": {
-          "_id": "12312789",
+          "_id": "65e3cf74f855ba698a213c6a",
           "title": "My board",
           "icon_id": 2,
           "background": "65e3dff38418fbee87899699",
@@ -1419,7 +1514,7 @@
         "properties": {
           "board": {
             "type": "string",
-            "description": "Board id",
+            "description": "Board's id",
             "example": "65e3cf74f855ba698a213c6a"
           }
         },
@@ -1434,35 +1529,35 @@
           "properties": {
             "_id": {
               "type": "string",
-              "description": "Column id",
-              "example": "12312789"
+              "description": "Column' id",
+              "example": "65e3c51000fa8682f603c476"
             },
             "title": {
               "type": "string",
-              "description": "Column title",
+              "description": "Column' title",
               "example": "My column"
             },
             "board": {
               "type": "string",
-              "description": "Board id",
+              "description": "Board' id",
               "example": "65e3cf74f855ba698a213c6a"
             },
             "owner": {
               "type": "string",
-              "description": "User id",
+              "description": "User' id",
               "example": "65e230b2c9cc70d4b01b3cdb"
             }
           }
         },
         "example": [
           {
-            "_id": "12312789",
+            "_id": "65e3c51000fa8682f603c476",
             "title": "My column",
             "board": "65e3cf74f855ba698a213c6a",
             "owner": "65e230b2c9cc70d4b01b3cdb"
           },
           {
-            "_id": "12312782",
+            "_id": "65e3c51000fa8682f603c346",
             "title": "My column 2",
             "board": "65e3cf74f855ba698a213c6a",
             "owner": "65e230b2c9cc70d4b01b3cdb"
@@ -1495,7 +1590,7 @@
           "_id": {
             "type": "string",
             "description": "Column's id",
-            "example": "12312789"
+            "example": "65e3c51000fa8682f603c476"
           },
           "title": {
             "type": "string",
@@ -1514,7 +1609,7 @@
           }
         },
         "example": {
-          "_id": "12312789",
+          "_id": "65e3c51000fa8682f603c476",
           "title": "My column",
           "board": "65e3cf74f855ba698a213c6a",
           "owner": "65e230b2c9cc70d4b01b3cdb"
@@ -1526,11 +1621,11 @@
           "title": {
             "type": "string",
             "description": "Column's title",
-            "example": "New Column"
+            "example": "Updated Column"
           }
         },
         "example": {
-          "title": "New column"
+          "title": "Updated column"
         }
       },
       "UpdateOneColumnResponse": {
@@ -1539,12 +1634,12 @@
           "_id": {
             "type": "string",
             "description": "Column's id",
-            "example": "12312789"
+            "example": "65e3c51000fa8682f603c476"
           },
           "title": {
             "type": "string",
             "description": "Columns's title",
-            "example": "My column"
+            "example": "Updated column"
           },
           "board": {
             "type": "string",
@@ -1558,8 +1653,8 @@
           }
         },
         "example": {
-          "_id": "12312789",
-          "title": "My column",
+          "_id": "65e3c51000fa8682f603c476",
+          "title": "Updated column",
           "board": "65e3cf74f855ba698a213c6a",
           "owner": "65e230b2c9cc70d4b01b3cdb"
         }
