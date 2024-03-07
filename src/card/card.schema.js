@@ -18,8 +18,8 @@ export const createCardSchema = Joi.object({
       'any.only':
         '"priority" must be one of the following values: without priority, low, medium, high',
     }),
-  deadline: Joi.date().greater('now').required().messages({
-    'date.greater': '"deadline" must be a date greater than the current date',
+  deadline: Joi.date().min(new Date()).required().messages({
+    'date.min': '"deadline" can not be less than the current date',
     'string.empty': '"deadline" cannot be an empty field',
     'any.required': 'missing required field "deadline"',
   }),
@@ -58,9 +58,9 @@ export const patchCardSchema = Joi.object({
       'any.only':
         '"priority" must be one of the following values: without priority, low, medium, high',
     }),
-  deadline: Joi.date().greater('now').messages({
+  deadline: Joi.date().min(new Date()).messages({
     'string.base': '"deadline" must be a string',
-    'date.greater': '"deadline" must be a date greater than the current date',
+    'date.min': '"deadline" can not be less than the current date',
   }),
   boardId: Joi.string().required().messages({
     'string.base': '"boardId" must be a string',
