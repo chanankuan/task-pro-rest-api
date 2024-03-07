@@ -143,9 +143,7 @@ const patchOneBoard = async (boardId, boardData, boardFile) => {
   board.icon_id = boardData.iconId ?? board.icon_id;
 
   if (!boardFile) {
-    board.background = boardData.backgroundId
-      ? background._id
-      : board.background;
+    board.background = boardData.backgroundId ? background : board.background;
     return board.save();
   }
 
@@ -156,7 +154,7 @@ const patchOneBoard = async (boardId, boardData, boardFile) => {
 
   const customBackground = await Background.create(backgrounds);
 
-  board.background = customBackground._id;
+  board.background = customBackground;
 
   return board.save();
 };
