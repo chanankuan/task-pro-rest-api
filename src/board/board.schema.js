@@ -28,4 +28,13 @@ export const patchBoardSchema = Joi.object({
   backgroundId: Joi.string().messages({
     'string.empty': '"backgroundId" cannot be an empty field',
   }),
+  background: Joi.object({
+    filename: Joi.string().required(),
+    path: Joi.string().required(),
+    headers: Joi.object({
+      'content-disposition': Joi.string().required(),
+      'content-type': Joi.string().required(),
+    }).required(),
+    bytes: Joi.number().required(),
+  }),
 });

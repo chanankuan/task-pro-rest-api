@@ -14,7 +14,7 @@ const boardSchema = new Schema(
     background: {
       type: Schema.Types.ObjectId,
       ref: 'Background',
-      required: [true, 'Set background id for board'],
+      required: [true, 'Set background for board'],
     },
     owner: {
       type: Schema.Types.ObjectId,

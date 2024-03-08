@@ -6,7 +6,7 @@ export const columnSchema = Joi.object({
     'any.required': 'missing required field "title"',
   }),
   board: Joi.string().required().messages({
-    'string.empty': '"boardId" cannot be an empty field',
+    'string.empty': '"board" cannot be an empty field',
     'any.required': 'missing required field "boardId"',
   }),
 });
