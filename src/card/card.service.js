@@ -21,7 +21,7 @@ const patchOneCard = async (cardId, userId, cardInfo) =>
   });
 
 const changeCardStatus = async (cardId, userId, columnId) =>
-  Card.findByIdAndUpdate(
+  await Card.findByIdAndUpdate(
     { _id: cardId, owner: userId },
     { column: columnId },
     { new: true }
