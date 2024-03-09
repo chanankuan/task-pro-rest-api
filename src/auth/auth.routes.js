@@ -5,6 +5,10 @@ import { authenticate, validateBody } from '../middlewares/index.js';
 
 const authRouter = express.Router();
 
+authRouter.get('/google', authController.googleAuth);
+
+authRouter.get('/google-redirect', authController.googleRedirect);
+
 authRouter.post(
   '/register',
   validateBody(registerSchema),
