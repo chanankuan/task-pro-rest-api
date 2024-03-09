@@ -1,4 +1,7 @@
 import Joi from 'joi';
+import { getDate } from '../helpers/getDate.js';
+
+const date = getDate();
 
 export const createCardSchema = Joi.object({
   title: Joi.string().required().messages({
@@ -18,7 +21,7 @@ export const createCardSchema = Joi.object({
       'any.only':
         '"priority" must be one of the following values: without priority, low, medium, high',
     }),
-  deadline: Joi.date().min(new Date()).required().messages({
+  deadline: Joi.date().min(date).required().messages({
     'date.min': '"deadline" can not be less than the current date',
     'string.empty': '"deadline" cannot be an empty field',
     'any.required': 'missing required field "deadline"',
@@ -47,7 +50,7 @@ export const patchCardSchema = Joi.object({
       'any.only':
         '"priority" must be one of the following values: without priority, low, medium, high',
     }),
-  deadline: Joi.date().min(new Date()).messages({
+  deadline: Joi.date().min(date).messages({
     'string.base': '"deadline" must be a string',
     'date.min': '"deadline" can not be less than the current date',
   }),
