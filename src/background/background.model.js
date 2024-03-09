@@ -28,11 +28,9 @@ const backgroundSchema = new Schema(
     },
     backgroundMinURL: {
       type: String,
-      required: [true, 'Set min url for background'],
     },
     backgroundMin2xURL: {
       type: String,
-      required: [true, 'Set min url for background'],
     },
     type: {
       type: String,

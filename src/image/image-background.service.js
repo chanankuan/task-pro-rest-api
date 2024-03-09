@@ -8,13 +8,8 @@ import { ImageService } from './image.service.js';
 export class ImageBackgroundService extends ImageService {
   static #temporaryBackgrounds = {
     backgroundDesktopURL: '',
-    backgroundDesktop2xURL: '',
     backgroundTabletURL: '',
-    backgroundTablet2xURL: '',
     backgroundMobileURL: '',
-    backgroundMobile2xURL: '',
-    backgroundMinURL: '',
-    backgroundMin2xURL: '',
   };
 
   static async saveBackgroundToCloud(folder) {
@@ -41,8 +36,12 @@ export class ImageBackgroundService extends ImageService {
 
     try {
       await Promise.all(uploadPromises);
-      await fse.remove(super._temporaryFilePath);
 
+      background.backgroundDesktop2xURL = background.backgroundDesktopURL;
+      background.backgroundTablet2xURL = background.backgroundTabletURL;
+      background.backgroundMobile2xURL = background.backgroundMobileURL;
+
+      await fse.remove(super._temporaryFilePath);
       return background;
     } catch {
       Object.keys(this.#temporaryBackgrounds).forEach(
