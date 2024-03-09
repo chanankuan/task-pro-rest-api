@@ -71,6 +71,9 @@ const googleRedirect = async (req, res) => {
       Authorization: `Bearer ${tokenData.data.access_token}`,
     },
   });
+
+  // +Логіка
+
   return res.redirect(
     `${process.env.FRONTEND_URL}?email=${userData.data.email}`
   );
