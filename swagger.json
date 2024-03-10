@@ -1006,53 +1006,60 @@
         }
       },
       "GetAllBoardsResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "Board's id",
-              "example": "65e3cf74f855ba698a213c6a"
-            },
-            "title": {
-              "type": "string",
-              "description": "Board's title",
-              "example": "My Board"
-            },
-            "icon_id": {
-              "type": "number",
-              "description": "Icon's id",
-              "example": 4
-            },
-            "background": {
-              "type": "string",
-              "description": "Background's id",
-              "example": "65e3dff38418fbee87899699"
-            },
-            "owner": {
-              "type": "string",
-              "description": "User's id",
-              "example": "65e230b2c9cc70d4b01b3cdb"
+        "type": "object",
+        "properties": {
+          "boards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Board's id",
+                  "example": "65e3cf74f855ba698a213c6a"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Board's title",
+                  "example": "My Board"
+                },
+                "icon_id": {
+                  "type": "number",
+                  "description": "Icon's id",
+                  "example": 4
+                },
+                "background": {
+                  "type": "string",
+                  "description": "Background's id",
+                  "example": "65e3dff38418fbee87899699"
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User's id",
+                  "example": "65e230b2c9cc70d4b01b3cdb"
+                }
+              }
             }
           }
         },
-        "example": [
-          {
-            "_id": "65e3cf74f855ba698a213c6a",
-            "title": "My board",
-            "icon_id": 4,
-            "background": "65e3dff38418fbee87899699",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          },
-          {
-            "_id": "65e3cf74f855ba698a213c6a",
-            "title": "My board 2",
-            "icon_id": 2,
-            "background": "65e3dff38418fbee87899699",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          }
-        ]
+        "example": {
+          "boards": [
+            {
+              "_id": "65e3cf74f855ba698a213c6a",
+              "title": "My board",
+              "icon_id": 4,
+              "background": "65e3dff38418fbee87899699",
+              "owner": "65e230b2c9cc70d4b01b3cdb"
+            },
+            {
+              "_id": "65e3cf74f855ba698a213c6a",
+              "title": "My board 2",
+              "icon_id": 2,
+              "background": "65e3dff38418fbee87899699",
+              "owner": "65e230b2c9cc70d4b01b3cdb"
+            }
+          ]
+        }
       },
       "CreateBoardRequest": {
         "type": "object",
@@ -1083,355 +1090,376 @@
       "CreateBoardResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "title": {
-            "type": "string",
-            "description": "Board's title",
-            "example": "New Board"
-          },
-          "icon_id": {
-            "type": "number",
-            "description": "Board's icon id",
-            "example": 2
-          },
-          "background": {
-            "type": "string",
-            "description": "Board's background id",
-            "example": "65e3dff38418fbee87899699"
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
+          "board": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
+              },
+              "title": {
+                "type": "string",
+                "description": "Board's title",
+                "example": "New Board"
+              },
+              "icon_id": {
+                "type": "number",
+                "description": "Board's icon id",
+                "example": 2
+              },
+              "background": {
+                "type": "string",
+                "description": "Board's background id",
+                "example": "65e3dff38418fbee87899699"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
+              }
+            }
           }
         },
         "example": {
-          "_id": "65e3cf74f855ba698a213c6a",
-          "title": "New Board",
-          "icon_id": 2,
-          "background": "65e3dff38418fbee87899699",
-          "owner": "65e230b2c9cc70d4b01b3cdb"
+          "board": {
+            "_id": "65e3cf74f855ba698a213c6a",
+            "title": "New Board",
+            "icon_id": 2,
+            "background": "65e3dff38418fbee87899699",
+            "owner": "65e230b2c9cc70d4b01b3cdb"
+          }
         }
       },
       "GetOneBoardResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "title": {
-            "type": "string",
-            "description": "Board's title",
-            "example": "My board"
-          },
-          "icon_id": {
-            "type": "number",
-            "description": "Icon's id",
-            "example": 4
-          },
-          "background": {
+          "board": {
             "type": "object",
             "properties": {
               "_id": {
                 "type": "string",
-                "description": "Background id",
-                "example": "65e3dff38418fbee87899699"
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
               },
-              "backgroundDesktopURL": {
+              "title": {
                 "type": "string",
-                "description": "Background desktop URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                "description": "Board's title",
+                "example": "My board"
               },
-              "backgroundDesktop2xURL": {
-                "type": "string",
-                "description": "Background desktop 2x URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+              "icon_id": {
+                "type": "number",
+                "description": "Icon's id",
+                "example": 4
               },
-              "backgroundTabletURL": {
-                "type": "string",
-                "description": "Background tablet URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+              "background": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "Background id",
+                    "example": "65e3dff38418fbee87899699"
+                  },
+                  "backgroundDesktopURL": {
+                    "type": "string",
+                    "description": "Background desktop URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundDesktop2xURL": {
+                    "type": "string",
+                    "description": "Background desktop 2x URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundTabletURL": {
+                    "type": "string",
+                    "description": "Background tablet URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundTablet2xURL": {
+                    "type": "string",
+                    "description": "Background tablet 2x URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMobileURL": {
+                    "type": "string",
+                    "description": "Background mobile URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMobile2xURL": {
+                    "type": "string",
+                    "description": "Background mobile 2x URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMinURL": {
+                    "type": "string",
+                    "description": "Background mobile URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMin2xURL": {
+                    "type": "string",
+                    "description": "Background mobile URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  }
+                }
               },
-              "backgroundTablet2xURL": {
+              "owner": {
                 "type": "string",
-                "description": "Background tablet 2x URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
               },
-              "backgroundMobileURL": {
-                "type": "string",
-                "description": "Background mobile URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              },
-              "backgroundMobile2xURL": {
-                "type": "string",
-                "description": "Background mobile 2x URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              },
-              "backgroundMinURL": {
-                "type": "string",
-                "description": "Background mobile URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              },
-              "backgroundMin2xURL": {
-                "type": "string",
-                "description": "Background mobile URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              }
-            }
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
-          },
-          "columns": {
-            "type": "array",
-            "item": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "type": "string",
-                  "description": "Column's id",
-                  "example": "65e486d8a7aa7d3afd38ba20"
-                },
-                "title": {
-                  "type": "string",
-                  "description": "Column's title",
-                  "example": "My Column"
-                },
-                "board": {
-                  "type": "string",
-                  "description": "Board's id",
-                  "example": "65e3cf74f855ba698a213c6a"
-                },
-                "cards": {
-                  "type": "string",
-                  "description": "Column's title",
-                  "example": "My Column"
+              "columns": {
+                "type": "array",
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "Column's id",
+                      "example": "65e486d8a7aa7d3afd38ba20"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Column's title",
+                      "example": "My Column"
+                    },
+                    "board": {
+                      "type": "string",
+                      "description": "Board's id",
+                      "example": "65e3cf74f855ba698a213c6a"
+                    },
+                    "cards": {
+                      "type": "string",
+                      "description": "Column's title",
+                      "example": "My Column"
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "example": [
-          {
-            "_id": "65e3cf59f855ba698a213c67",
-            "title": "My board",
-            "icon_id": 4,
-            "background": {
-              "_id": "65e3dff38418fbee8789969a",
-              "backgroundDesktopURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo",
-              "backgroundDesktop2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/znzmgrxhlmmjzpvu9xkk",
-              "backgroundTabletURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/grtt2crqkvwmhymgroaw",
-              "backgroundTablet2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/lbkuvh0yfurdypldzcms",
-              "backgroundMobileURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/vz7go2bvibakllryawcy",
-              "backgroundMobile2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ojtc1uzseexfgeyxgoii",
-              "backgroundMinURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/trkpqfjlbk1591xfdktc",
-              "backgroundMin2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/zfu50adll3bo3ghgraiv"
-            },
-            "owner": "65e230b2c9cc70d4b01b3cdb",
-            "columns": [
-              {
-                "_id": "65e486d8a7aa7d3afd38ba20",
-                "title": "New column title",
-                "board": "65e3cf74f855ba698a213c6a",
-                "cards": [
-                  {
-                    "_id": "65e3cb094d42695fc1b699c0",
-                    "title": "The Watch Spot Design",
-                    "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
-                    "priority": "low",
-                    "deadline": "2024-03-02T16:33:21.953Z",
-                    "board": "65e3cf74f855ba698a213c6a",
-                    "column": "65e486d8a7aa7d3afd38ba20",
-                    "owner": "65e230b2c9cc70d4b01b3cdb"
-                  }
-                ]
+        "example": {
+          "board": [
+            {
+              "_id": "65e3cf59f855ba698a213c67",
+              "title": "My board",
+              "icon_id": 4,
+              "background": {
+                "_id": "65e3dff38418fbee8789969a",
+                "backgroundDesktopURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo",
+                "backgroundDesktop2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/znzmgrxhlmmjzpvu9xkk",
+                "backgroundTabletURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/grtt2crqkvwmhymgroaw",
+                "backgroundTablet2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/lbkuvh0yfurdypldzcms",
+                "backgroundMobileURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/vz7go2bvibakllryawcy",
+                "backgroundMobile2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ojtc1uzseexfgeyxgoii",
+                "backgroundMinURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/trkpqfjlbk1591xfdktc",
+                "backgroundMin2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/zfu50adll3bo3ghgraiv"
               },
-              {
-                "_id": "65e486d8a7aa7d3afd38ba43",
-                "title": "New column title",
-                "board": "65e3cf74f855ba698a213c6a",
-                "cards": [
-                  {
-                    "_id": "65e3cb094d42695fc1b699c0",
-                    "title": "The Watch Spot Design",
-                    "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
-                    "priority": "low",
-                    "deadline": "2024-03-02T16:33:21.953Z",
-                    "board": "65e3cf74f855ba698a213c6a",
-                    "column": "65e486d8a7aa7d3afd38ba20",
-                    "owner": "65e230b2c9cc70d4b01b3cdb"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+              "owner": "65e230b2c9cc70d4b01b3cdb",
+              "columns": [
+                {
+                  "_id": "65e486d8a7aa7d3afd38ba20",
+                  "title": "New column title",
+                  "board": "65e3cf74f855ba698a213c6a",
+                  "cards": [
+                    {
+                      "_id": "65e3cb094d42695fc1b699c0",
+                      "title": "The Watch Spot Design",
+                      "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
+                      "priority": "low",
+                      "deadline": "2024-03-02T16:33:21.953Z",
+                      "board": "65e3cf74f855ba698a213c6a",
+                      "column": "65e486d8a7aa7d3afd38ba20",
+                      "owner": "65e230b2c9cc70d4b01b3cdb"
+                    }
+                  ]
+                },
+                {
+                  "_id": "65e486d8a7aa7d3afd38ba43",
+                  "title": "New column title",
+                  "board": "65e3cf74f855ba698a213c6a",
+                  "cards": [
+                    {
+                      "_id": "65e3cb094d42695fc1b699c0",
+                      "title": "The Watch Spot Design",
+                      "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
+                      "priority": "low",
+                      "deadline": "2024-03-02T16:33:21.953Z",
+                      "board": "65e3cf74f855ba698a213c6a",
+                      "column": "65e486d8a7aa7d3afd38ba20",
+                      "owner": "65e230b2c9cc70d4b01b3cdb"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       "GetOneBoardWithFiltersResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "title": {
-            "type": "string",
-            "description": "Board's title",
-            "example": "My board"
-          },
-          "icon_id": {
-            "type": "number",
-            "description": "Icon's id",
-            "example": 4
-          },
-          "background": {
+          "board": {
             "type": "object",
             "properties": {
               "_id": {
                 "type": "string",
-                "description": "Background id",
-                "example": "65e3dff38418fbee87899699"
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
               },
-              "backgroundDesktopURL": {
+              "title": {
                 "type": "string",
-                "description": "Background desktop URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                "description": "Board's title",
+                "example": "My board"
               },
-              "backgroundDesktop2xURL": {
-                "type": "string",
-                "description": "Background desktop 2x URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+              "icon_id": {
+                "type": "number",
+                "description": "Icon's id",
+                "example": 4
               },
-              "backgroundTabletURL": {
-                "type": "string",
-                "description": "Background tablet URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+              "background": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "Background id",
+                    "example": "65e3dff38418fbee87899699"
+                  },
+                  "backgroundDesktopURL": {
+                    "type": "string",
+                    "description": "Background desktop URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundDesktop2xURL": {
+                    "type": "string",
+                    "description": "Background desktop 2x URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundTabletURL": {
+                    "type": "string",
+                    "description": "Background tablet URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundTablet2xURL": {
+                    "type": "string",
+                    "description": "Background tablet 2x URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMobileURL": {
+                    "type": "string",
+                    "description": "Background mobile URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMobile2xURL": {
+                    "type": "string",
+                    "description": "Background mobile 2x URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMinURL": {
+                    "type": "string",
+                    "description": "Background mobile URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  },
+                  "backgroundMin2xURL": {
+                    "type": "string",
+                    "description": "Background mobile URL",
+                    "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                  }
+                }
               },
-              "backgroundTablet2xURL": {
+              "owner": {
                 "type": "string",
-                "description": "Background tablet 2x URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
               },
-              "backgroundMobileURL": {
-                "type": "string",
-                "description": "Background mobile URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              },
-              "backgroundMobile2xURL": {
-                "type": "string",
-                "description": "Background mobile 2x URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              },
-              "backgroundMinURL": {
-                "type": "string",
-                "description": "Background mobile URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              },
-              "backgroundMin2xURL": {
-                "type": "string",
-                "description": "Background mobile URL",
-                "example": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo"
-              }
-            }
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
-          },
-          "columns": {
-            "type": "array",
-            "item": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "type": "string",
-                  "description": "Column's id",
-                  "example": "65e486d8a7aa7d3afd38ba20"
-                },
-                "title": {
-                  "type": "string",
-                  "description": "Column's title",
-                  "example": "My Column"
-                },
-                "board": {
-                  "type": "string",
-                  "description": "Board's id",
-                  "example": "65e3cf74f855ba698a213c6a"
-                },
-                "cards": {
-                  "type": "string",
-                  "description": "Column's title",
-                  "example": "My Column"
+              "columns": {
+                "type": "array",
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "Column's id",
+                      "example": "65e486d8a7aa7d3afd38ba20"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Column's title",
+                      "example": "My Column"
+                    },
+                    "board": {
+                      "type": "string",
+                      "description": "Board's id",
+                      "example": "65e3cf74f855ba698a213c6a"
+                    },
+                    "cards": {
+                      "type": "string",
+                      "description": "Column's title",
+                      "example": "My Column"
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "example": [
-          {
-            "_id": "65e3cf59f855ba698a213c67",
-            "title": "My board",
-            "icon_id": 4,
-            "background": {
-              "_id": "65e3dff38418fbee8789969a",
-              "backgroundDesktopURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo",
-              "backgroundDesktop2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/znzmgrxhlmmjzpvu9xkk",
-              "backgroundTabletURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/grtt2crqkvwmhymgroaw",
-              "backgroundTablet2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/lbkuvh0yfurdypldzcms",
-              "backgroundMobileURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/vz7go2bvibakllryawcy",
-              "backgroundMobile2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ojtc1uzseexfgeyxgoii",
-              "backgroundMinURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/trkpqfjlbk1591xfdktc",
-              "backgroundMin2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/zfu50adll3bo3ghgraiv"
-            },
-            "owner": "65e230b2c9cc70d4b01b3cdb",
-            "columns": [
-              {
-                "_id": "65e486d8a7aa7d3afd38ba20",
-                "title": "New column title",
-                "board": "65e3cf74f855ba698a213c6a",
-                "cards": [
-                  {
-                    "_id": "65e3cb094d42695fc1b699c0",
-                    "title": "The Watch Spot Design",
-                    "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
-                    "priority": "low",
-                    "deadline": "2024-03-02T16:33:21.953Z",
-                    "board": "65e3cf74f855ba698a213c6a",
-                    "column": "65e486d8a7aa7d3afd38ba20",
-                    "owner": "65e230b2c9cc70d4b01b3cdb"
-                  }
-                ]
+        "example": {
+          "board": [
+            {
+              "_id": "65e3cf59f855ba698a213c67",
+              "title": "My board",
+              "icon_id": 4,
+              "background": {
+                "_id": "65e3dff38418fbee8789969a",
+                "backgroundDesktopURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ghdev5lhzhp4fkz1mbgo",
+                "backgroundDesktop2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/znzmgrxhlmmjzpvu9xkk",
+                "backgroundTabletURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/grtt2crqkvwmhymgroaw",
+                "backgroundTablet2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/lbkuvh0yfurdypldzcms",
+                "backgroundMobileURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/vz7go2bvibakllryawcy",
+                "backgroundMobile2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/ojtc1uzseexfgeyxgoii",
+                "backgroundMinURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/trkpqfjlbk1591xfdktc",
+                "backgroundMin2xURL": "https://res.cloudinary.com/dg5bsm1lg/image/upload/v1709427737/task-pro/backgrounds/zfu50adll3bo3ghgraiv"
               },
-              {
-                "_id": "65e486d8a7aa7d3afd38ba43",
-                "title": "New column title",
-                "board": "65e3cf74f855ba698a213c6a",
-                "cards": [
-                  {
-                    "_id": "65e3cb094d42695fc1b699c0",
-                    "title": "The Watch Spot Design",
-                    "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
-                    "priority": "low",
-                    "deadline": "2024-03-02T16:33:21.953Z",
-                    "board": "65e3cf74f855ba698a213c6a",
-                    "column": "65e486d8a7aa7d3afd38ba20",
-                    "owner": "65e230b2c9cc70d4b01b3cdb"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+              "owner": "65e230b2c9cc70d4b01b3cdb",
+              "columns": [
+                {
+                  "_id": "65e486d8a7aa7d3afd38ba20",
+                  "title": "New column title",
+                  "board": "65e3cf74f855ba698a213c6a",
+                  "cards": [
+                    {
+                      "_id": "65e3cb094d42695fc1b699c0",
+                      "title": "The Watch Spot Design",
+                      "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
+                      "priority": "low",
+                      "deadline": "2024-03-02T16:33:21.953Z",
+                      "board": "65e3cf74f855ba698a213c6a",
+                      "column": "65e486d8a7aa7d3afd38ba20",
+                      "owner": "65e230b2c9cc70d4b01b3cdb"
+                    }
+                  ]
+                },
+                {
+                  "_id": "65e486d8a7aa7d3afd38ba43",
+                  "title": "New column title",
+                  "board": "65e3cf74f855ba698a213c6a",
+                  "cards": [
+                    {
+                      "_id": "65e3cb094d42695fc1b699c0",
+                      "title": "The Watch Spot Design",
+                      "description": "Create a visually stunning and eye-catching watch dial design that embodies our brand's essence of sleek aesthetics and modern elegance. Your design should be unique, innovative, and reflective of the latest trends in watch design.",
+                      "priority": "low",
+                      "deadline": "2024-03-02T16:33:21.953Z",
+                      "board": "65e3cf74f855ba698a213c6a",
+                      "column": "65e486d8a7aa7d3afd38ba20",
+                      "owner": "65e230b2c9cc70d4b01b3cdb"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       "UpdateOneBoardRequest": {
         "type": "object",
@@ -1461,38 +1489,45 @@
       "UpdateOneBoardResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "title": {
-            "type": "string",
-            "description": "Board's title",
-            "example": "My column"
-          },
-          "icon_id": {
-            "type": "number",
-            "description": "Board's id",
-            "example": 2
-          },
-          "background": {
-            "type": "string",
-            "description": "Board's background id",
-            "example": "65e3dff38418fbee87899699"
-          },
-          "owner": {
-            "type": "string",
-            "description": "User id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
+          "board": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
+              },
+              "title": {
+                "type": "string",
+                "description": "Board's title",
+                "example": "My column"
+              },
+              "icon_id": {
+                "type": "number",
+                "description": "Board's id",
+                "example": 2
+              },
+              "background": {
+                "type": "string",
+                "description": "Board's background id",
+                "example": "65e3dff38418fbee87899699"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
+              }
+            }
           }
         },
         "example": {
-          "_id": "65e3cf74f855ba698a213c6a",
-          "title": "My board",
-          "icon_id": 2,
-          "background": "65e3dff38418fbee87899699",
-          "owner": "65e230b2c9cc70d4b01b3cdb"
+          "board": {
+            "_id": "65e3cf74f855ba698a213c6a",
+            "title": "My board",
+            "icon_id": 2,
+            "background": "65e3dff38418fbee87899699",
+            "owner": "65e230b2c9cc70d4b01b3cdb"
+          }
         }
       },
       "DeleteOneBoardResponse": {
@@ -1523,46 +1558,53 @@
         }
       },
       "GetAllColumnsResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "Column' id",
-              "example": "65e3c51000fa8682f603c476"
-            },
-            "title": {
-              "type": "string",
-              "description": "Column' title",
-              "example": "My column"
-            },
-            "board": {
-              "type": "string",
-              "description": "Board' id",
-              "example": "65e3cf74f855ba698a213c6a"
-            },
-            "owner": {
-              "type": "string",
-              "description": "User' id",
-              "example": "65e230b2c9cc70d4b01b3cdb"
+        "type": "object",
+        "properties": {
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Column' id",
+                  "example": "65e3c51000fa8682f603c476"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Column' title",
+                  "example": "My column"
+                },
+                "board": {
+                  "type": "string",
+                  "description": "Board' id",
+                  "example": "65e3cf74f855ba698a213c6a"
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User' id",
+                  "example": "65e230b2c9cc70d4b01b3cdb"
+                }
+              }
             }
           }
         },
-        "example": [
-          {
-            "_id": "65e3c51000fa8682f603c476",
-            "title": "My column",
-            "board": "65e3cf74f855ba698a213c6a",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          },
-          {
-            "_id": "65e3c51000fa8682f603c346",
-            "title": "My column 2",
-            "board": "65e3cf74f855ba698a213c6a",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          }
-        ]
+        "example": {
+          "columns": [
+            {
+              "_id": "65e3c51000fa8682f603c476",
+              "title": "My column",
+              "board": "65e3cf74f855ba698a213c6a",
+              "owner": "65e230b2c9cc70d4b01b3cdb"
+            },
+            {
+              "_id": "65e3c51000fa8682f603c346",
+              "title": "My column 2",
+              "board": "65e3cf74f855ba698a213c6a",
+              "owner": "65e230b2c9cc70d4b01b3cdb"
+            }
+          ]
+        }
       },
       "CreateColumnRequest": {
         "type": "object",
@@ -1587,32 +1629,39 @@
       "CreateColumnResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "65e3c51000fa8682f603c476"
-          },
-          "title": {
-            "type": "string",
-            "description": "Columns's title",
-            "example": "My column"
-          },
-          "board": {
-            "type": "string",
-            "description": "Board id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
+          "column": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Column's id",
+                "example": "65e3c51000fa8682f603c476"
+              },
+              "title": {
+                "type": "string",
+                "description": "Columns's title",
+                "example": "My column"
+              },
+              "board": {
+                "type": "string",
+                "description": "Board id",
+                "example": "65e3cf74f855ba698a213c6a"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
+              }
+            }
           }
         },
         "example": {
-          "_id": "65e3c51000fa8682f603c476",
-          "title": "My column",
-          "board": "65e3cf74f855ba698a213c6a",
-          "owner": "65e230b2c9cc70d4b01b3cdb"
+          "column": {
+            "_id": "65e3c51000fa8682f603c476",
+            "title": "My column",
+            "board": "65e3cf74f855ba698a213c6a",
+            "owner": "65e230b2c9cc70d4b01b3cdb"
+          }
         }
       },
       "UpdateOneColumnRequest": {
@@ -1631,32 +1680,39 @@
       "UpdateOneColumnResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "65e3c51000fa8682f603c476"
-          },
-          "title": {
-            "type": "string",
-            "description": "Columns's title",
-            "example": "Updated column"
-          },
-          "board": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
+          "column": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Column's id",
+                "example": "65e3c51000fa8682f603c476"
+              },
+              "title": {
+                "type": "string",
+                "description": "Columns's title",
+                "example": "Updated column"
+              },
+              "board": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
+              }
+            }
           }
         },
         "example": {
-          "_id": "65e3c51000fa8682f603c476",
-          "title": "Updated column",
-          "board": "65e3cf74f855ba698a213c6a",
-          "owner": "65e230b2c9cc70d4b01b3cdb"
+          "column": {
+            "_id": "65e3c51000fa8682f603c476",
+            "title": "Updated column",
+            "board": "65e3cf74f855ba698a213c6a",
+            "owner": "65e230b2c9cc70d4b01b3cdb"
+          }
         }
       },
       "DeleteOneColumnsResponse": {
@@ -1673,74 +1729,81 @@
         }
       },
       "GetAllCardsResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "Card's id",
-              "example": "12312789"
-            },
-            "title": {
-              "type": "string",
-              "description": "Card's title",
-              "example": "My card"
-            },
-            "description": {
-              "type": "string",
-              "description": "Card's descripiton",
-              "example": "Example description"
-            },
-            "priority": {
-              "type": "string",
-              "descripiton": "Card's priority",
-              "example": "low"
-            },
-            "deadline": {
-              "type": "string",
-              "descripiton": "Card's deadline",
-              "format": "date-time"
-            },
-            "board": {
-              "type": "string",
-              "description": "Board's id",
-              "example": "65e3cf74f855ba698a213c6a"
-            },
-            "column": {
-              "type": "string",
-              "description": "Column's id",
-              "example": "65e3c51000fa8682f603c476"
-            },
-            "owner": {
-              "type": "string",
-              "description": "User's id",
-              "example": "65e230b2c9cc70d4b01b3cdb"
+        "type": "object",
+        "properties": {
+          "cards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Card's id",
+                  "example": "12312789"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Card's title",
+                  "example": "My card"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Card's descripiton",
+                  "example": "Example description"
+                },
+                "priority": {
+                  "type": "string",
+                  "descripiton": "Card's priority",
+                  "example": "low"
+                },
+                "deadline": {
+                  "type": "string",
+                  "descripiton": "Card's deadline",
+                  "format": "date-time"
+                },
+                "board": {
+                  "type": "string",
+                  "description": "Board's id",
+                  "example": "65e3cf74f855ba698a213c6a"
+                },
+                "column": {
+                  "type": "string",
+                  "description": "Column's id",
+                  "example": "65e3c51000fa8682f603c476"
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User's id",
+                  "example": "65e230b2c9cc70d4b01b3cdb"
+                }
+              }
             }
           }
         },
-        "example": [
-          {
-            "_id": "12312789",
-            "title": "My card",
-            "descripiton": "Example description",
-            "priority": "low",
-            "deadline": "2024-04-02T16:33:21.953Z",
-            "board": "65e3cf74f855ba698a213c6a",
-            "column": "65e486d8a7aa7d3afd38ba20",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          },
-          {
-            "_id": "123127891",
-            "title": "Example 2 card",
-            "descripiton": "Example description",
-            "priority": "low",
-            "deadline": "2024-04-02T16:33:21.953Z",
-            "board": "65e3cf74f855ba698a213c6a",
-            "column": "65e3c51000fa8682f603c476",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          }
-        ]
+        "example": {
+          "cards": [
+            {
+              "_id": "12312789",
+              "title": "My card",
+              "descripiton": "Example description",
+              "priority": "low",
+              "deadline": "2024-04-02T16:33:21.953Z",
+              "board": "65e3cf74f855ba698a213c6a",
+              "column": "65e486d8a7aa7d3afd38ba20",
+              "owner": "65e230b2c9cc70d4b01b3cdb"
+            },
+            {
+              "_id": "123127891",
+              "title": "Example 2 card",
+              "descripiton": "Example description",
+              "priority": "low",
+              "deadline": "2024-04-02T16:33:21.953Z",
+              "board": "65e3cf74f855ba698a213c6a",
+              "column": "65e3c51000fa8682f603c476",
+              "owner": "65e230b2c9cc70d4b01b3cdb"
+            }
+          ]
+        }
       },
       "CreateCardRequest": {
         "type": "object",
@@ -1749,8 +1812,8 @@
           "description",
           "priority",
           "deadline",
-          "boardId",
-          "columnId"
+          "board",
+          "column"
         ],
         "properties": {
           "title": {
@@ -1773,12 +1836,12 @@
             "descripiton": "Card's deadline",
             "format": "date-time"
           },
-          "boardId": {
+          "board": {
             "type": "string",
             "description": "Board's id",
             "example": "12837981271739"
           },
-          "columnId": {
+          "column": {
             "type": "string",
             "description": "Column's id",
             "example": "12837981271731"
@@ -1789,63 +1852,70 @@
           "description": "Example description",
           "priority": "low",
           "deadline": "2024-04-02T16:33:21.953Z",
-          "boardId": "12837981271739",
-          "columnId": "12837981271731"
+          "board": "12837981271739",
+          "column": "12837981271731"
         }
       },
       "CreateCardResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Card's id",
-            "example": "12312789"
-          },
-          "title": {
-            "type": "string",
-            "description": "Card's title",
-            "example": "My card"
-          },
-          "description": {
-            "type": "string",
-            "description": "Card's descripiton",
-            "example": "Example description"
-          },
-          "priority": {
-            "type": "string",
-            "descripiton": "Card's priority",
-            "example": "low"
-          },
-          "deadline": {
-            "type": "string",
-            "descripiton": "Card's deadline",
-            "format": "date-time"
-          },
-          "board": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "column": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "65e3c51000fa8682f603c476"
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
+          "card": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Card's id",
+                "example": "12312789"
+              },
+              "title": {
+                "type": "string",
+                "description": "Card's title",
+                "example": "My card"
+              },
+              "description": {
+                "type": "string",
+                "description": "Card's descripiton",
+                "example": "Example description"
+              },
+              "priority": {
+                "type": "string",
+                "descripiton": "Card's priority",
+                "example": "low"
+              },
+              "deadline": {
+                "type": "string",
+                "descripiton": "Card's deadline",
+                "format": "date-time"
+              },
+              "board": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
+              },
+              "column": {
+                "type": "string",
+                "description": "Column's id",
+                "example": "65e3c51000fa8682f603c476"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
+              }
+            }
           }
         },
         "example": {
-          "_id": "123127891",
-          "title": "Example 2 card",
-          "descripiton": "Example description",
-          "priority": "low",
-          "deadline": "2024-04-02T16:33:21.953Z",
-          "board": "65e3cf74f855ba698a213c6a",
-          "column": "65e3c51000fa8682f603c476",
-          "owner": "65e230b2c9cc70d4b01b3cdb"
+          "card": {
+            "_id": "123127891",
+            "title": "Example 2 card",
+            "descripiton": "Example description",
+            "priority": "low",
+            "deadline": "2024-04-02T16:33:21.953Z",
+            "board": "65e3cf74f855ba698a213c6a",
+            "column": "65e3c51000fa8682f603c476",
+            "owner": "65e230b2c9cc70d4b01b3cdb"
+          }
         }
       },
       "UpdateOneCardRequest": {
@@ -1871,12 +1941,12 @@
             "descripiton": "Card's deadline",
             "format": "date-time"
           },
-          "boardId": {
+          "board": {
             "type": "string",
             "description": "Board's id",
             "example": "12837981271739"
           },
-          "columnId": {
+          "column": {
             "type": "string",
             "description": "Column's id",
             "example": "12837981271731"
@@ -1887,63 +1957,70 @@
           "descripiton": "Example description",
           "priority": "low",
           "deadline": "2024-04-02T16:33:21.953Z",
-          "boardId": "12837981271739",
-          "columnId": "12837981271731"
+          "board": "12837981271739",
+          "column": "12837981271731"
         }
       },
       "UpdateOneCardResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Card's id",
-            "example": "12312789"
-          },
-          "title": {
-            "type": "string",
-            "description": "Card's title",
-            "example": "My card"
-          },
-          "description": {
-            "type": "string",
-            "description": "Card's descripiton",
-            "example": "Example description"
-          },
-          "priority": {
-            "type": "string",
-            "descripiton": "Card's priority",
-            "example": "low"
-          },
-          "deadline": {
-            "type": "string",
-            "descripiton": "Card's deadline",
-            "format": "date-time"
-          },
-          "board": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "65e3cf74f855ba698a213c6a"
-          },
-          "column": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "65e3c51000fa8682f603c476"
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e230b2c9cc70d4b01b3cdb"
+          "card": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Card's id",
+                "example": "12312789"
+              },
+              "title": {
+                "type": "string",
+                "description": "Card's title",
+                "example": "My card"
+              },
+              "description": {
+                "type": "string",
+                "description": "Card's descripiton",
+                "example": "Example description"
+              },
+              "priority": {
+                "type": "string",
+                "descripiton": "Card's priority",
+                "example": "low"
+              },
+              "deadline": {
+                "type": "string",
+                "descripiton": "Card's deadline",
+                "format": "date-time"
+              },
+              "board": {
+                "type": "string",
+                "description": "Board's id",
+                "example": "65e3cf74f855ba698a213c6a"
+              },
+              "column": {
+                "type": "string",
+                "description": "Column's id",
+                "example": "65e3c51000fa8682f603c476"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e230b2c9cc70d4b01b3cdb"
+              }
+            }
           }
         },
         "example": {
-          "_id": "123127891",
-          "title": "Example 2 card",
-          "descripiton": "Example description",
-          "priority": "low",
-          "deadline": "2024-04-02T16:33:21.953Z",
-          "board": "65e3cf74f855ba698a213c6a",
-          "column": "65e3c51000fa8682f603c476",
-          "owner": "65e230b2c9cc70d4b01b3cdb"
+          "card": {
+            "_id": "123127891",
+            "title": "Example 2 card",
+            "descripiton": "Example description",
+            "priority": "low",
+            "deadline": "2024-04-02T16:33:21.953Z",
+            "board": "65e3cf74f855ba698a213c6a",
+            "column": "65e3c51000fa8682f603c476",
+            "owner": "65e230b2c9cc70d4b01b3cdb"
+          }
         }
       },
       "DeleteOneCardResponse": {
@@ -1955,19 +2032,7 @@
             "example": "Card deleted successfully"
           }
         },
-        "example": {
-          "card": {
-            "_id": "65e3cb094d42695fc1b699c0",
-            "title": "My card",
-            "descripiton": "Example description",
-            "priority": "low",
-            "deadline": "2024-04-02T16:33:21.953Z",
-            "board": "65e3cf74f855ba698a213c6a",
-            "column": "65e3c51000fa8682f603c476",
-            "owner": "65e230b2c9cc70d4b01b3cdb"
-          },
-          "message": "Card deleted successfully"
-        }
+        "example": { "message": "Card deleted successfully" }
       },
       "GetAllBackgroundsResponse": {
         "type": "array",

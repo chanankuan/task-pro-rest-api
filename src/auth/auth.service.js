@@ -34,7 +34,7 @@ const loginUser = async ({ email, password }) => {
     throw HttpError(401, 'Email or password invalid');
   }
 
-  const passwordCompare = user.comparePassword(password, user.password);
+  const passwordCompare = await user.comparePassword(password, user.password);
 
   if (!passwordCompare) {
     throw HttpError(401, 'Email or password invalid');
