@@ -33,4 +33,6 @@ cardRouter.patch(
   cardController.changeCardStatus
 );
 
+cardRouter.patch('/:cardId/order', cardController.changeCardOrder);
+
 export default cardRouter;
