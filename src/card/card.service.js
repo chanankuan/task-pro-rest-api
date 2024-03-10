@@ -65,37 +65,62 @@ const getCardsStats = async userId => {
     });
 
     // Get count for each deadline category
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const outdatedCount = await Card.countDocuments({
       owner: userId,
-      deadline: { $lt: new Date() },
+      deadline: { $lt: today },
       board: boardId,
     });
 
     const todayCount = await Card.countDocuments({
       owner: userId,
-      deadline: { $eq: new Date() },
+      deadline: {
+        $gte: today,
+        $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000),
+      },
       board: boardId,
     });
+
+    const todayDate = today.getDate();
+    const todayDay = today.getDay();
+
+    // get first date of week
+    const weekStart = new Date(today.setDate(todayDate - todayDay));
+
+    // get last date of week
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekEnd.getDate() + 6);
 
     const weekCount = await Card.countDocuments({
       owner: userId,
       deadline: {
-        $lte: new Date(new Date().setDate(new Date().getDate() + 7)),
+        $gte: weekStart,
+        $lte: weekEnd,
       },
       board: boardId,
     });
+
+    const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     const monthCount = await Card.countDocuments({
       owner: userId,
       deadline: {
-        $gte: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+        $lt: new Date(monthEnd.setHours(23, 59, 59, 999)),
       },
       board: boardId,
     });
 
+    const nextMonthStart = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      1
+    );
+
     const furtherCount = await Card.countDocuments({
       owner: userId,
-      deadline: { $eq: new Date() },
+      deadline: { $gte: nextMonthStart },
       board: boardId,
     });
 
