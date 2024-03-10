@@ -6,11 +6,18 @@ const getAllCards = async (req, res) => {
   const { _id } = req.user;
   if (!_id) throw HttpError(401);
 
-  const { boardId, columnId } = req.body;
-
-  const cards = await cardService.getAllCards(_id, boardId, columnId);
+  const cards = await cardService.getAllCards(_id);
 
   res.json({ cards });
+};
+
+const getCardsStats = async (req, res) => {
+  const { _id } = req.user;
+  if (!_id) throw HttpError(401);
+
+  const stats = await cardService.getCardsStats(_id);
+
+  res.json({ stats });
 };
 
 const createOneCard = async (req, res) => {
@@ -85,4 +92,5 @@ export default {
   patchOneCard: trycatch(patchOneCard),
   changeCardStatus: trycatch(changeCardStatus),
   changeCardOrder: trycatch(changeCardOrder),
+  getCardsStats: trycatch(getCardsStats),
 };

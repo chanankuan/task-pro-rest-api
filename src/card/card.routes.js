@@ -11,6 +11,7 @@ export const cardRouter = express.Router();
 
 cardRouter.use(authenticate);
 cardRouter.get('/', cardController.getAllCards);
+cardRouter.get('/stats', cardController.getCardsStats);
 cardRouter.post(
   '/',
   validateBody(createCardSchema),
