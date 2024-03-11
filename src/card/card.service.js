@@ -1,13 +1,26 @@
+import { HttpError } from '../helpers/HttpError.js';
 import { Board } from '../board/board.model.js';
 import { Card } from './card.model.js';
 
 const getAllCards = async userId => await Card.find({ owner: userId });
 
-const createOneCard = async (cardInfo, userId) =>
-  await Card.create({
+const createOneCard = async (cardInfo, userId) => {
+  const maxOrder = await Card.findOne({
+    owner: userId,
+    column: cardInfo.column,
+  })
+    .sort({ order: -1 })
+    .limit(1)
+    .select('order');
+
+  const newOrder = maxOrder ? maxOrder.order + 1 : 1;
+
+  return await Card.create({
     ...cardInfo,
     owner: userId,
+    order: newOrder,
   });
+};
 
 const deleteOneCard = async (cardId, userId) =>
   await Card.findByIdAndDelete({
@@ -26,6 +39,36 @@ const changeCardStatus = async (cardId, userId, columnId) =>
     { column: columnId },
     { new: true }
   );
+
+const changeCardOrder = async (cardId, userId, columnId, newOrder) => {
+  const targetCard = await Card.findOne({
+    _id: cardId,
+    owner: userId,
+    column: columnId,
+  });
+
+  if (!targetCard) {
+    throw HttpError(404, 'Card not found');
+  }
+
+  const cardsToUpdate = await Card.find({
+    owner: userId,
+    column: columnId,
+    order: { $gte: newOrder },
+  });
+
+  const updatePromises = cardsToUpdate.map(async card => {
+    card.order = targetCard.order > card.order ? card.order + 1 : card.order;
+    await card.save();
+  });
+
+  targetCard.order = newOrder;
+
+  await targetCard.save();
+  await Promise.all(updatePromises);
+
+  return targetCard;
+};
 
 const getCardsStats = async userId => {
   const stats = {};
@@ -172,5 +215,6 @@ export default {
   deleteOneCard,
   patchOneCard,
   changeCardStatus,
+  changeCardOrder,
   getCardsStats,
 };

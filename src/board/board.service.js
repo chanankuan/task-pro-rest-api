@@ -58,6 +58,26 @@ const getOneBoard = async (boardId, userId, filters) => {
               },
             },
           },
+          {
+            $unwind: {
+              path: '$cards',
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+          {
+            $sort: { 'cards.order': 1 },
+          },
+          {
+            $group: {
+              _id: '$_id',
+              title: { $first: '$title' },
+              board: { $first: '$board' },
+              cards: { $push: '$cards' },
+            },
+          },
+          {
+            $sort: { _id: 1 },
+          },
         ],
         as: 'columns',
       },
@@ -81,6 +101,7 @@ const getOneBoard = async (boardId, userId, filters) => {
             board: 1,
             column: 1,
             owner: 1,
+            order: 1,
           },
         },
       },

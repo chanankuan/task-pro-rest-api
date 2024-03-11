@@ -30,6 +30,10 @@ const cardSchema = new Schema(
       ref: 'Column',
       required: true,
     },
+    order: {
+      type: Number,
+      default: 0,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',

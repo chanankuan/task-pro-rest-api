@@ -70,11 +70,27 @@ const changeCardStatus = async (req, res) => {
   res.json({ card: updatedCard });
 };
 
+const changeCardOrder = async (req, res) => {
+  const { _id: userId } = req.user;
+  const { cardId } = req.params;
+  const { columnId, order } = req.body;
+
+  const updatedCard = await cardService.changeCardOrder(
+    cardId,
+    userId,
+    columnId,
+    order
+  );
+
+  res.json({ card: updatedCard });
+};
+
 export default {
   getAllCards: trycatch(getAllCards),
   createOneCard: trycatch(createOneCard),
   deleteOneCard: trycatch(deleteOneCard),
   patchOneCard: trycatch(patchOneCard),
   changeCardStatus: trycatch(changeCardStatus),
+  changeCardOrder: trycatch(changeCardOrder),
   getCardsStats: trycatch(getCardsStats),
 };
