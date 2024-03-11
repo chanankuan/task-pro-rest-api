@@ -10,6 +10,7 @@ import cardRouter from './card/card.routes.js';
 import columnRouter from './column/column.routes.js';
 import backgroundRouter from './background/background.routes.js';
 import emailRouter from './email/email.routes.js';
+import cookieParser from 'cookie-parser';
 
 export const app = express();
 
@@ -17,6 +18,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cookieParser());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
