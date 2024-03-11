@@ -1615,7 +1615,7 @@
             "description": "Column title",
             "example": "New Column"
           },
-          "board": {
+          "boardId": {
             "type": "string",
             "description": "Board id",
             "example": "65e3cf74f855ba698a213c6a"
@@ -1623,7 +1623,7 @@
         },
         "example": {
           "title": "New column",
-          "board": "65e3cf74f855ba698a213c6a"
+          "boardId": "65e3cf74f855ba698a213c6a"
         }
       },
       "CreateColumnResponse": {
