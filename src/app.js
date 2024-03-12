@@ -19,7 +19,7 @@ app.use(morgan('tiny'));
 app.use(
   cors({
     credentials: true,
-    origin: dotenvConfig.FRONTEND_URL,
+    origin: 'https://lizaklimova.github.io',
   })
 );
 app.use(express.json());
