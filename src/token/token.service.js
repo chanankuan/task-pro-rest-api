@@ -6,7 +6,7 @@ const { KEY_ACCESS, KEY_REFRESH } = dotenvConfig;
 
 const generateTokens = payload => {
   const tokenAccess = jwt.sign(payload, KEY_ACCESS, {
-    expiresIn: '5s',
+    expiresIn: '3d',
   });
   const refreshToken = jwt.sign(payload, KEY_REFRESH, {
     expiresIn: '30d',
@@ -32,7 +32,7 @@ const saveToken = async (userId, refreshToken) => {
 };
 
 const removeToken = async refreshToken => {
-  const filter = { refreshToken }; // Создаем объект с параметром для поиска
+  const filter = { refreshToken };
   const token = await Token.deleteOne(filter);
   return token;
 };
@@ -56,7 +56,7 @@ const validateRefreshToken = token => {
 };
 
 const findToken = async refreshToken => {
-  const filter = { refreshToken }; // Создаем объект с параметром для поиска
+  const filter = { refreshToken };
   const token = await Token.findOne(filter);
   return token;
 };

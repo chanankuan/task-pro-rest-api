@@ -2,6 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
+import cookieParser from 'cookie-parser';
+import dotenvConfig from './dotenvConfig.js';
 import { swaggerDocument } from './helpers/swaggerSetup.js';
 import authRouter from './auth/auth.routes.js';
 import userRouter from './user/user.routes.js';
@@ -10,7 +12,6 @@ import cardRouter from './card/card.routes.js';
 import columnRouter from './column/column.routes.js';
 import backgroundRouter from './background/background.routes.js';
 import emailRouter from './email/email.routes.js';
-import cookieParser from 'cookie-parser';
 
 export const app = express();
 
@@ -18,7 +19,7 @@ app.use(morgan('tiny'));
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: dotenvConfig.FRONTEND_URL,
   })
 );
 app.use(express.json());
