@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken';
 import dotenvConfig from '../dotenvConfig.js';
 import { HttpError } from '../helpers/index.js';
 import { User } from '../user/user.model.js';
-
-const { SECRET_KEY } = dotenvConfig;
+import tokenService from '../token/token.service.js';
 
 export const authenticate = async (req, _, next) => {
-  const [bearer, token] = req.headers.authorization?.split(' ') || [];
+  const [bearer, accessToken] = req.headers.authorization?.split(' ') || [];
+  const refreshToken = req.cookies.refreshToken;
 
   if (bearer !== 'Bearer') {
     next(HttpError(401, 'Not authorized'));
@@ -14,13 +14,22 @@ export const authenticate = async (req, _, next) => {
   }
 
   try {
-    const { id: userId } = jwt.verify(token, SECRET_KEY);
-    const user = await User.findOne({ _id: userId });
+    const accessUser = tokenService.validateAccessToken(accessToken);
+    const refreshTokenUser = tokenService.validateRefreshToken(refreshToken);
 
-    if (!user || !user.token || user.token !== token) {
+    if (!accessUser || !refreshTokenUser) {
       next(HttpError(401, 'Not authorized'));
       return;
     }
+
+    const refreshTokenDB = await tokenService.findToken(refreshToken);
+
+    if (!refreshTokenDB.refreshToken) {
+      next(HttpError(401, 'Not authorized'));
+      return;
+    }
+
+    const user = await User.findById(accessUser.id);
 
     req.user = user;
   } catch (error) {
