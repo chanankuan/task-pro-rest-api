@@ -2,6 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
+import cookieParser from 'cookie-parser';
+import dotenvConfig from './dotenvConfig.js';
 import { swaggerDocument } from './helpers/swaggerSetup.js';
 import authRouter from './auth/auth.routes.js';
 import userRouter from './user/user.routes.js';
@@ -14,9 +16,15 @@ import emailRouter from './email/email.routes.js';
 export const app = express();
 
 app.use(morgan('tiny'));
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: dotenvConfig.FRONTEND_URL,
+  })
+);
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cookieParser());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
