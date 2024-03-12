@@ -21,6 +21,7 @@ const registerUser = async ({ name, email, password }) => {
 
   return {
     ...newUser.toObject(),
+    password: undefined,
     ...tokens,
   };
 };
@@ -48,6 +49,7 @@ const loginUser = async ({ email, password }) => {
 
   return {
     ...user.toObject(),
+    password: undefined,
     ...tokens,
   };
 };
@@ -76,6 +78,7 @@ const refresh = async refreshToken => {
 
   return {
     ...user.toObject(),
+    password: undefined,
     ...tokens,
   };
 };

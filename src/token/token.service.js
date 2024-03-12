@@ -6,7 +6,7 @@ const { KEY_ACCESS, KEY_REFRESH } = dotenvConfig;
 
 const generateTokens = payload => {
   const tokenAccess = jwt.sign(payload, KEY_ACCESS, {
-    expiresIn: '15s',
+    expiresIn: '5s',
   });
   const refreshToken = jwt.sign(payload, KEY_REFRESH, {
     expiresIn: '30d',
