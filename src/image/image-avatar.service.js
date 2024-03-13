@@ -16,7 +16,7 @@ export class ImageAvatarService extends ImageService {
 
       await fse.remove(super._temporaryFilePath);
 
-      return result.url;
+      return result.secure_url;
     } catch (error) {
       await fse.remove(super._temporaryFilePath);
       throw HttpError(400, 'Cloud connection error');
