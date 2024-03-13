@@ -18,7 +18,7 @@ app.use(morgan('tiny'));
 app.use(
   cors({
     credentials: true,
-    origin: 'https://lizaklimova.github.io',
+    origin: ['https://lizaklimova.github.io', 'http://localhost:3000'],
   })
 );
 app.use(express.json());

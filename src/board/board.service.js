@@ -165,7 +165,10 @@ const patchOneBoard = async (boardId, boardData, boardFile) => {
 
   if (!boardFile) {
     board.background = boardData.backgroundId ? background : board.background;
-    return board.save();
+    return (await board.save()).populate({
+      path: 'background',
+      select: '-createdAt -updatedAt',
+    });
   }
 
   await ImageBackgroundService.processBackgroundImages(BACKGROUND_OPTIONS);
