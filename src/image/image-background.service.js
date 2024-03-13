@@ -23,7 +23,7 @@ export class ImageBackgroundService extends ImageService {
           { folder }
         );
 
-        background[key] = result.url;
+        background[key] = result.secure_url;
         await fse.remove(this.#temporaryBackgrounds[key]);
       } catch {
         throw HttpError(400, 'Failed to upload image');
