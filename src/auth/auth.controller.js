@@ -120,9 +120,11 @@ const googleRedirect = async (req, res) => {
   res.cookie('refreshToken', loginResponse.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
+    secure: true,
+    sameSite: 'None',
   });
 
-  return res.redirect(`${FRONTEND_URL}?email=${userData.data.email}`);
+  return res.redirect(`${FRONTEND_URL}?token=${loginResponse.accessToken}`);
 };
 
 export default {
