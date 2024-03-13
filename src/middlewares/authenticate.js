@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken';
-import dotenvConfig from '../dotenvConfig.js';
 import { HttpError } from '../helpers/index.js';
 import { User } from '../user/user.model.js';
 import tokenService from '../token/token.service.js';
@@ -30,6 +28,7 @@ export const authenticate = async (req, _, next) => {
     }
 
     const user = await User.findById(accessUser.id);
+    user.tokenAccess = accessToken;
 
     req.user = user;
   } catch (error) {

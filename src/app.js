@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import cookieParser from 'cookie-parser';
-import dotenvConfig from './dotenvConfig.js';
 import { swaggerDocument } from './helpers/swaggerSetup.js';
 import authRouter from './auth/auth.routes.js';
 import userRouter from './user/user.routes.js';
