@@ -124,7 +124,7 @@ const googleRedirect = async (req, res) => {
     sameSite: 'None',
   });
 
-  return res.redirect(`${FRONTEND_URL}?token=${loginResponse.accessToken}`);
+  return res.redirect(`${FRONTEND_URL}?token=${loginResponse.tokenAccess}`);
 };
 
 export default {
