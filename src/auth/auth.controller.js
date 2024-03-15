@@ -52,7 +52,7 @@ const refresh = async (req, res) => {
     maxAge: 2592000000,
     httpOnly: true,
     secure: true,
-    sameSite: 'L',
+    sameSite: 'None',
   });
 
   res.status(200).json({ user });
