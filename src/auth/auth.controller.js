@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
     maxAge: 2592000000,
     httpOnly: true,
     secure: true,
-    sameSite: 'None',
+    sameSite: 'Lax',
   });
 
   res.status(201).json({ user });
@@ -29,7 +29,7 @@ const loginUser = async (req, res) => {
     maxAge: 2592000000,
     httpOnly: true,
     secure: true,
-    sameSite: 'None',
+    sameSite: 'Lax',
   });
 
   res.status(200).json({ user });
@@ -52,7 +52,7 @@ const refresh = async (req, res) => {
     maxAge: 2592000000,
     httpOnly: true,
     secure: true,
-    sameSite: 'None',
+    sameSite: 'Lax',
   });
 
   res.status(200).json({ user });
@@ -121,7 +121,7 @@ const googleRedirect = async (req, res) => {
     maxAge: 2592000000,
     httpOnly: true,
     secure: true,
-    sameSite: 'None',
+    sameSite: 'Lax',
   });
 
   return res.redirect(`${FRONTEND_URL}?token=${loginResponse.tokenAccess}`);
