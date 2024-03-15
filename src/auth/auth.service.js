@@ -16,7 +16,6 @@ const registerUser = async ({ name, email, password }) => {
   };
 
   const tokens = tokenService.generateTokens(payload);
-
   await tokenService.saveToken(newUser._id, tokens.refreshToken);
 
   return {
@@ -59,8 +58,10 @@ const refresh = async refreshToken => {
     throw HttpError(401, 'Refresh token is missing');
   }
   const userData = tokenService.validateRefreshToken(refreshToken);
-  const tokenFromDb = await tokenService.findToken(refreshToken);
-  if (!userData || !tokenFromDb) {
+  console.log(userData);
+  // const tokenFromDb = await tokenService.findToken(refreshToken);
+  // console.log(tokenFromDb);
+  if (!userData) {
     throw HttpError(401, 'Invalid refresh token');
   }
 

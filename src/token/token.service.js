@@ -8,9 +8,11 @@ const generateTokens = payload => {
   const tokenAccess = jwt.sign(payload, KEY_ACCESS, {
     expiresIn: '3d',
   });
+
   const refreshToken = jwt.sign(payload, KEY_REFRESH, {
     expiresIn: '30d',
   });
+
   return {
     tokenAccess,
     refreshToken,
@@ -24,10 +26,12 @@ const saveToken = async (userId, refreshToken) => {
     tokenData.refreshToken = refreshToken;
     return tokenData.save();
   }
+
   const token = await Token.create({
     user: userId,
     refreshToken,
   });
+
   return token;
 };
 
