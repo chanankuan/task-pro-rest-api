@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
   res.cookie('refreshToken', user.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    secure: true,
+    // secure: true,
     sameSite: 'Lax',
   });
 
@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
   res.cookie('refreshToken', user.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    secure: true,
+    // secure: true,
     sameSite: 'Lax',
   });
 
@@ -51,7 +51,7 @@ const refresh = async (req, res) => {
   res.cookie('refreshToken', user.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    secure: true,
+    // secure: true,
     sameSite: 'Lax',
   });
 
@@ -120,7 +120,7 @@ const googleRedirect = async (req, res) => {
   res.cookie('refreshToken', loginResponse.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    secure: true,
+    // secure: true,
     sameSite: 'Lax',
   });
 
