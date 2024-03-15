@@ -14,8 +14,8 @@ const registerUser = async (req, res) => {
   res.cookie('refreshToken', user.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    // secure: true,
-    sameSite: 'Lax',
+    secure: true,
+    sameSite: 'None',
   });
 
   res.status(201).json({ user });
@@ -28,8 +28,8 @@ const loginUser = async (req, res) => {
   res.cookie('refreshToken', user.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    // secure: true,
-    sameSite: 'Lax',
+    secure: true,
+    sameSite: 'None',
   });
 
   res.status(200).json({ user });
@@ -51,8 +51,8 @@ const refresh = async (req, res) => {
   res.cookie('refreshToken', user.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    // secure: true,
-    sameSite: 'Lax',
+    secure: true,
+    sameSite: 'L',
   });
 
   res.status(200).json({ user });
@@ -120,8 +120,8 @@ const googleRedirect = async (req, res) => {
   res.cookie('refreshToken', loginResponse.refreshToken, {
     maxAge: 2592000000,
     httpOnly: true,
-    // secure: true,
-    sameSite: 'Lax',
+    secure: true,
+    sameSite: 'None',
   });
 
   return res.redirect(`${FRONTEND_URL}?token=${loginResponse.tokenAccess}`);
