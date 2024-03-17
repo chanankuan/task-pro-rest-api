@@ -10,13 +10,8 @@ const { BASE_URL, FRONTEND_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } =
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
+
   const user = await authService.registerUser({ name, email, password });
-  res.cookie('refreshToken', user.refreshToken, {
-    maxAge: 2592000000,
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-  });
 
   res.status(201).json({ user });
 };
@@ -25,20 +20,13 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await authService.loginUser({ email, password });
-  res.cookie('refreshToken', user.refreshToken, {
-    maxAge: 2592000000,
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-  });
 
   res.status(200).json({ user });
 };
 
 const logoutUser = async (req, res) => {
-  const { refreshToken } = req.cookies;
+  const { refreshToken } = req.body;
   await authService.logoutUser(refreshToken);
-  res.clearCookie('refreshToken');
 
   res.status(200).json({
     message: 'Logout success',
@@ -46,19 +34,14 @@ const logoutUser = async (req, res) => {
 };
 
 const refresh = async (req, res) => {
-  const { refreshToken } = req.cookies;
+  const { refreshToken } = req.body;
   const user = await authService.refresh(refreshToken);
-  res.cookie('refreshToken', user.refreshToken, {
-    maxAge: 2592000000,
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-  });
 
   res.status(200).json({ user });
 };
 
 const googleAuth = async (req, res) => {
+  console.log(BASE_URL);
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
     redirect_uri: `${BASE_URL}/auth/google-redirect`,
@@ -70,6 +53,7 @@ const googleAuth = async (req, res) => {
     access_type: 'offline',
     prompt: 'consent',
   });
+
   return res.redirect(
     `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
   );
@@ -79,7 +63,6 @@ const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
   const urlObj = new URL(fullUrl);
   const urlParams = queryString.parse(urlObj.search);
-
   const code = urlParams.code;
 
   const tokenData = await axios({
@@ -117,14 +100,9 @@ const googleRedirect = async (req, res) => {
     password: 'someRandomPassword',
   });
 
-  res.cookie('refreshToken', loginResponse.refreshToken, {
-    maxAge: 2592000000,
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-  });
-
-  return res.redirect(`${FRONTEND_URL}?token=${loginResponse.tokenAccess}`);
+  return res.redirect(
+    `${FRONTEND_URL}?token=${loginResponse.tokenAccess}&refreshToken=${loginResponse.refreshToken}`
+  );
 };
 
 export default {
