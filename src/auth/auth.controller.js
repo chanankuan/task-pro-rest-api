@@ -12,12 +12,6 @@ const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   const user = await authService.registerUser({ name, email, password });
-  // res.cookie('refreshToken', user.refreshToken, {
-  //   maxAge: 2592000000,
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: 'None',
-  // });
 
   res.status(201).json({ user });
 };
@@ -26,12 +20,6 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await authService.loginUser({ email, password });
-  // res.cookie('refreshToken', user.refreshToken, {
-  //   maxAge: 2592000000,
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: 'None',
-  // });
 
   res.status(200).json({ user });
 };
@@ -39,7 +27,6 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
   const { refreshToken } = req.body;
   await authService.logoutUser(refreshToken);
-  // res.clearCookie('refreshToken');
 
   res.status(200).json({
     message: 'Logout success',
@@ -49,18 +36,11 @@ const logoutUser = async (req, res) => {
 const refresh = async (req, res) => {
   const { refreshToken } = req.body;
   const user = await authService.refresh(refreshToken);
-  // res.cookie('refreshToken', user.refreshToken, {
-  //   maxAge: 2592000000,
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: 'None',
-  // });
 
   res.status(200).json({ user });
 };
 
 const googleAuth = async (req, res) => {
-  console.log(`${BASE_URL}/auth/google-redirect`);
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
     redirect_uri: `${BASE_URL}/auth/google-redirect`,
@@ -72,7 +52,7 @@ const googleAuth = async (req, res) => {
     access_type: 'offline',
     prompt: 'consent',
   });
-  console.log(`${BASE_URL}/auth/google-redirect`);
+
   return res.redirect(
     `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
   );
@@ -82,9 +62,8 @@ const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
   const urlObj = new URL(fullUrl);
   const urlParams = queryString.parse(urlObj.search);
-
   const code = urlParams.code;
-  console.log(`${BASE_URL}/auth/google-redirect`);
+
   const tokenData = await axios({
     url: `https://oauth2.googleapis.com/token`,
     method: 'post',
@@ -120,14 +99,7 @@ const googleRedirect = async (req, res) => {
     password: 'someRandomPassword',
   });
 
-  res.status(201).json({ user: loginResponse });
-
-  // res.cookie('refreshToken', loginResponse.refreshToken, {
-  //   maxAge: 2592000000,
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: 'None',
-  // });
+  res.json({ user: loginResponse });
 
   return res.redirect(`${FRONTEND_URL}?token=${loginResponse.tokenAccess}`);
 };

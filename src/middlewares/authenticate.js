@@ -12,19 +12,11 @@ export const authenticate = async (req, _, next) => {
 
   try {
     const accessUser = tokenService.validateAccessToken(accessToken);
-    // const refreshTokenUser = tokenService.validateRefreshToken(refreshToken);
 
     if (!accessUser) {
       next(HttpError(401, 'Not authorized'));
       return;
     }
-
-    // const refreshTokenDB = await tokenService.findToken(refreshToken);
-
-    // if (!refreshTokenDB.refreshToken) {
-    //   next(HttpError(401, 'Not authorized'));
-    //   return;
-    // }
 
     const user = await User.findById(accessUser.id);
     user.tokenAccess = accessToken;
